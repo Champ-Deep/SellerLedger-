@@ -4,7 +4,11 @@ Prototype site for a standalone brand selling Amazon and ecommerce seller contac
 
 ## What is here
 
-- `index.html`: single-file prototype. Live list builder (marketplace, category, revenue band, FBA/FBM, required fields) with record count and price estimate, market stats, marketplace coverage, buyer presets, data fields, pricing, compliance, FAQ and quote form.
+- `public/index.html`: single-file prototype. Live list builder (marketplace, category, revenue band, FBA/FBM, required fields) with record count and price estimate, market stats, marketplace coverage, buyer presets, data fields, pricing, compliance, FAQ and quote form.
+
+## Hosting
+
+Cloudflare Worker `sellerledger` serving static assets from `public/` (see `wrangler.jsonc`). Workers Builds deploys every push to `main`. The page carries `noindex` until counts and prices are final; remove that meta tag at launch.
 
 ## Status
 
