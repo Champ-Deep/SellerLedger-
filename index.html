@@ -1,0 +1,652 @@
+<title>SellerLedger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: full-bleed working surface. The list builder IS the hero; everything after it explains the data behind the count. */
+:root{
+  --bg:#EEF1F4;          /* cool warehouse-floor grey */
+  --surface:#FFFFFF;
+  --sunk:#E3E8EE;
+  --ink:#0C1A24;
+  --muted:#51606C;
+  --line:#CDD5DD;
+  --accent:#2447E0;      /* cobalt, the "scan" colour */
+  --accent-ink:#FFFFFF;
+  --accent-soft:#DCE3FF;
+  --verified:#0E8A63;
+  --verified-soft:#D5F0E6;
+  --flag:#B86B00;
+  --flag-soft:#FBEBCF;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:6px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0A131A;--surface:#111D26;--sunk:#172631;--ink:#E6EDF2;--muted:#95A5B2;--line:#253744;
+  --accent:#7D95FF;--accent-ink:#081020;--accent-soft:#1C2A5A;--verified:#4FD1A1;--verified-soft:#10362B;
+  --flag:#F2B24C;--flag-soft:#3A2A10;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0A131A;--surface:#111D26;--sunk:#172631;--ink:#E6EDF2;--muted:#95A5B2;--line:#253744;
+  --accent:#7D95FF;--accent-ink:#081020;--accent-soft:#1C2A5A;--verified:#4FD1A1;--verified-soft:#10362B;
+  --flag:#F2B24C;--flag-soft:#3A2A10;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+a{color:var(--accent)}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.02}
+h2{font-size:clamp(28px,3.4vw,48px);font-variation-settings:"wdth" 118;font-weight:800;letter-spacing:-.01em}
+h3{font-size:19px;font-weight:700;font-variation-settings:"wdth" 105;line-height:1.2}
+p{margin:0}
+.wrap{max-width:1760px;margin-inline:auto;padding-inline:clamp(16px,3.5vw,56px)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono)}
+.num{font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* prototype banner */
+.proto{background:var(--flag-soft);color:var(--ink);font-size:13px}
+.proto .wrap{padding-block:8px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.proto b{color:var(--flag);font-family:var(--mono);font-size:11px;letter-spacing:.1em}
+
+/* nav */
+header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header.nav .wrap{display:flex;align-items:center;gap:28px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 120;font-size:21px;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
+.logo i{display:block;width:26px;height:20px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px)}
+nav.links{display:flex;gap:22px;flex-wrap:wrap}
+nav.links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+nav.links a:hover{color:var(--ink)}
+.nav .spacer{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:var(--r);padding:11px 18px;font:600 14px var(--body);cursor:pointer;text-decoration:none;transition:transform .12s ease,background .15s}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--ink)}
+@media (max-width:860px){nav.links{display:none}}
+
+/* hero builder */
+.hero{padding-block:clamp(28px,4vw,56px) clamp(36px,5vw,72px)}
+.hero-head{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:clamp(20px,4vw,64px);align-items:end;margin-bottom:clamp(24px,3vw,40px)}
+.hero h1{font-size:clamp(36px,4.8vw,84px);font-weight:900;font-variation-settings:"wdth" 125;letter-spacing:-.025em;line-height:.94}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-head p{color:var(--muted);font-size:clamp(16px,1.3vw,19px);max-width:52ch}
+@media (max-width:900px){.hero-head{grid-template-columns:1fr}}
+
+.builder{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+@media (max-width:1080px){.builder{grid-template-columns:1fr}}
+.filters{padding:clamp(18px,2vw,28px);display:flex;flex-direction:column;gap:22px;border-right:1px solid var(--line)}
+@media (max-width:1080px){.filters{border-right:0;border-bottom:1px solid var(--line)}}
+.fgroup{display:flex;flex-direction:column;gap:10px}
+.fgroup-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.fgroup-h button{background:none;border:0;color:var(--accent);font:500 12px var(--body);cursor:pointer;padding:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px;font:500 13px var(--body);cursor:pointer;display:inline-flex;gap:6px;align-items:center;transition:background .12s,border-color .12s}
+.chip:hover{border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip small{font-family:var(--mono);font-size:10.5px;opacity:.65}
+.seg{display:inline-flex;align-self:flex-start;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;flex-wrap:wrap}
+.seg button{border:0;background:var(--surface);color:var(--ink);padding:7px 14px;font:500 13px var(--body);cursor:pointer;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.hint{font-size:12.5px;color:var(--muted)}
+
+.results{display:flex;flex-direction:column;min-width:0}
+.count-panel{padding:clamp(18px,2vw,28px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px 28px;align-items:end;border-bottom:1px solid var(--line);background:var(--sunk)}
+@media (max-width:620px){.count-panel{grid-template-columns:1fr}}
+.count{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 125;font-size:clamp(52px,7vw,112px);line-height:.9;letter-spacing:-.03em}
+.barcode{height:18px;margin-top:10px;background:repeating-linear-gradient(90deg,var(--ink) 0 1px,transparent 1px 3px,var(--ink) 3px 6px,transparent 6px 7px,var(--ink) 7px 8px,transparent 8px 11px,var(--ink) 11px 13px,transparent 13px 15px);opacity:.85;max-width:420px}
+.count-meta{display:flex;flex-direction:column;gap:6px;min-width:0}
+.est{display:grid;grid-template-columns:auto auto;gap:4px 18px;font-size:13.5px;align-items:baseline}
+.est dt{color:var(--muted)}
+.est dd{margin:0;text-align:right;font-family:var(--mono);font-weight:500}
+.est dd.big{font-size:20px;color:var(--ink)}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+
+.preview-h{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px clamp(18px,2vw,28px);flex-wrap:wrap}
+.tbl-wrap{overflow-x:auto;border-top:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap;background:var(--surface)}
+td{padding:11px 14px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+tbody tr:hover td{background:var(--sunk)}
+td .seller{font-weight:600}
+td .sid{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font:500 11.5px var(--mono);background:var(--sunk);color:var(--ink)}
+.pill.ok{background:var(--verified-soft);color:var(--verified)}
+.pill.acc{background:var(--accent-soft);color:var(--accent)}
+.masked{font-family:var(--mono);font-size:12.5px}
+.stars{font-family:var(--mono);font-size:12.5px}
+.tbl-note{font-size:12px;color:var(--muted);padding:10px clamp(18px,2vw,28px) 16px}
+
+/* sections */
+section.band{padding-block:clamp(48px,6vw,96px);border-top:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(16px,4vw,64px);align-items:end;margin-bottom:clamp(24px,3vw,44px)}
+.sec-head p{color:var(--muted);max-width:60ch}
+@media (max-width:900px){.sec-head{grid-template-columns:1fr}}
+
+/* market facts */
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-block:1px solid var(--ink)}
+.fact{padding:22px 22px 24px 0;display:flex;flex-direction:column;gap:10px}
+.fact + .fact{padding-left:22px;border-left:1px solid var(--line)}
+.fact .big{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 122;font-size:clamp(36px,4vw,60px);line-height:.95;letter-spacing:-.02em}
+.fact p{font-size:14.5px;color:var(--ink)}
+.fact cite{font-style:normal;font-size:12px;color:var(--muted);margin-top:auto}
+.fact cite a{color:var(--muted)}
+@media (max-width:1000px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.fact:nth-child(3){padding-left:0;border-left:0}.fact:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:560px){.facts{grid-template-columns:1fr}.fact,.fact+.fact{padding-left:0;border-left:0}.fact+.fact{border-top:1px solid var(--line)}}
+.takeaway{margin-top:28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:clamp(16px,4vw,64px)}
+.takeaway p{font-size:clamp(17px,1.5vw,21px);max-width:62ch}
+@media (max-width:900px){.takeaway{grid-template-columns:1fr}}
+
+/* marketplaces grid */
+.mk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.mk{background:var(--surface);padding:18px 20px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.mk-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.mk .region{font:500 11px var(--mono);letter-spacing:.08em;color:var(--muted)}
+.mk .n{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 115;font-size:30px;letter-spacing:-.01em}
+.mk .bar{height:4px;background:var(--sunk);border-radius:2px;overflow:hidden}
+.mk .bar span{display:block;height:100%;background:var(--accent)}
+.mk .sub{font-size:12.5px;color:var(--muted)}
+
+/* buyers */
+.buyers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:1000px){.buyers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.buyers{grid-template-columns:1fr}}
+.buyer{border-top:3px solid var(--ink);padding-top:16px;display:flex;flex-direction:column;gap:10px}
+.buyer p{color:var(--muted);font-size:14.5px}
+.buyer .preset{font-family:var(--mono);font-size:12px;color:var(--ink);background:var(--sunk);padding:8px 10px;border-radius:var(--r)}
+.buyer button{align-self:flex-start;margin-top:auto}
+
+/* fields */
+.fields-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:clamp(20px,4vw,64px)}
+@media (max-width:1000px){.fields-layout{grid-template-columns:1fr}}
+.fields-tbl td,.fields-tbl th{white-space:normal}
+.fields-tbl td:first-child{font-weight:600;white-space:nowrap}
+.fill{display:flex;align-items:center;gap:10px;min-width:140px}
+.fill .track{flex:1;height:6px;background:var(--sunk);border-radius:3px;overflow:hidden}
+.fill .track span{display:block;height:100%;background:var(--verified)}
+.fill b{font:500 12.5px var(--mono);width:38px;text-align:right}
+.group-row td{background:var(--sunk);font:500 11px var(--mono)!important;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;counter-reset:s}
+@media (max-width:1000px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.step .k{font:500 12px var(--mono);color:var(--accent)}
+.step p{color:var(--muted);font-size:14.5px}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
+@media (max-width:1000px){.plans{grid-template-columns:1fr}}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px;display:flex;flex-direction:column;gap:14px}
+.plan.feature{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.plan .price{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 118;font-size:42px;letter-spacing:-.02em;line-height:1}
+.plan .price small{font:500 14px var(--body);color:var(--muted);letter-spacing:0}
+.plan ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:14.5px}
+.plan li{padding-left:20px;position:relative}
+.plan li::before{content:"";position:absolute;left:2px;top:.55em;width:8px;height:8px;border-radius:2px;background:var(--verified)}
+.plan .btn{margin-top:auto}
+.tiers{margin-top:22px;overflow-x:auto}
+.tiers table td,.tiers table th{text-align:right}
+.tiers table td:first-child,.tiers table th:first-child{text-align:left}
+
+/* compliance + faq */
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,64px)}
+@media (max-width:900px){.two{grid-template-columns:1fr}}
+.comp{display:flex;flex-direction:column;gap:14px}
+.comp div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:14px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.comp b{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:2px}
+.comp p{font-size:14.5px}
+details{border-bottom:1px solid var(--line);padding-block:14px}
+summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::after{content:"+";font-family:var(--mono);color:var(--muted)}
+details[open] summary::after{content:"\2212"}
+details p{margin-top:10px;color:var(--muted);font-size:14.5px;max-width:70ch}
+
+/* quote */
+.quote{background:var(--ink);color:var(--bg)}
+.quote .eyebrow{color:color-mix(in srgb,var(--bg) 65%,transparent)}
+.quote-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(24px,5vw,80px);padding-block:clamp(48px,6vw,96px)}
+@media (max-width:900px){.quote-grid{grid-template-columns:1fr}}
+.quote h2{color:var(--bg)}
+.quote p{color:color-mix(in srgb,var(--bg) 75%,transparent)}
+.summary-box{margin-top:22px;border:1px solid color-mix(in srgb,var(--bg) 25%,transparent);border-radius:10px;padding:16px;font:13px/1.7 var(--mono);color:var(--bg)}
+form.qf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:620px){form.qf{grid-template-columns:1fr}}
+.qf label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:color-mix(in srgb,var(--bg) 80%,transparent)}
+.qf .full{grid-column:1/-1}
+.qf input,.qf select,.qf textarea{font:15px var(--body);padding:11px 12px;border-radius:var(--r);border:1px solid color-mix(in srgb,var(--bg) 25%,transparent);background:color-mix(in srgb,var(--bg) 6%,transparent);color:var(--bg)}
+.qf select option{color:#0C1A24;background:#fff}
+.qf input:focus,.qf select:focus,.qf textarea:focus{outline:2px solid var(--accent);outline-offset:0}
+.qf .btn-primary{justify-self:start}
+.qf-msg{grid-column:1/-1;font-size:14px;padding:12px 14px;border-radius:var(--r);background:color-mix(in srgb,var(--verified) 22%,transparent);color:var(--bg)}
+.qf-err{grid-column:1/-1;font-size:14px;color:var(--flag)}
+
+footer{padding-block:32px;font-size:13px;color:var(--muted)}
+footer .wrap{display:flex;gap:20px;justify-content:space-between;flex-wrap:wrap}
+</style>
+
+<div class="proto" role="note"><div class="wrap"><b>PROTOTYPE</b><span>Market figures in "The seller market" section are sourced. Record counts, fill rates, prices and the brand name are working placeholders. Sample rows are fictional.</span></div></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="SellerLedger home"><i aria-hidden="true"></i>SellerLedger</a>
+    <nav class="links" aria-label="Main">
+      <a href="#market">The market</a>
+      <a href="#marketplaces">Marketplaces</a>
+      <a href="#buyers">Who uses it</a>
+      <a href="#fields">Data fields</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <span class="spacer"></span>
+    <a class="btn btn-primary" href="#quote">Get a quote</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-head">
+      <h1>Amazon and ecommerce <em>sellers</em>, with a person to contact.</h1>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <span class="eyebrow">Seller lists for agencies, SaaS, 3PLs and lenders</span>
+        <p>Pick the marketplaces, categories and revenue band you sell into. The count updates as you go. Order the list, or take 25 free sample records first.</p>
+      </div>
+    </div>
+
+    <div class="builder" id="builder">
+      <div class="filters">
+        <div class="fgroup">
+          <div class="fgroup-h"><span class="eyebrow">Marketplace</span><button type="button" data-clear="mk">Select all</button></div>
+          <div class="chips" id="f-mk"></div>
+        </div>
+        <div class="fgroup">
+          <div class="fgroup-h"><span class="eyebrow">Top category</span><button type="button" data-clear="cat">Any category</button></div>
+          <div class="chips" id="f-cat"></div>
+        </div>
+        <div class="fgroup">
+          <div class="fgroup-h"><span class="eyebrow">Est. monthly revenue</span><button type="button" data-clear="rev">Any band</button></div>
+          <div class="chips" id="f-rev"></div>
+          <span class="hint">Modelled from review velocity, price and rank history. Bands, not exact figures.</span>
+        </div>
+        <div class="fgroup">
+          <span class="eyebrow">Amazon fulfilment</span>
+          <div class="seg" id="f-ful" role="group" aria-label="Amazon fulfilment"></div>
+          <span class="hint">FBA sellers ship through Amazon. FBM sellers ship themselves and buy their own 3PL, freight and packaging.</span>
+        </div>
+        <div class="fgroup">
+          <span class="eyebrow">Must include</span>
+          <div class="chips" id="f-need"></div>
+        </div>
+      </div>
+
+      <div class="results">
+        <div class="count-panel" aria-live="polite">
+          <div>
+            <span class="eyebrow">Sellers matching your filters</span>
+            <div class="count num" id="count">0</div>
+            <div class="barcode" aria-hidden="true"></div>
+          </div>
+          <div class="count-meta">
+            <dl class="est">
+              <dt>Rate per record</dt><dd id="rate">$0.00</dd>
+              <dt>Volume tier</dt><dd id="tier">Starter</dd>
+              <dt>List price</dt><dd class="big" id="price">$0</dd>
+            </dl>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="#quote" id="orderBtn">Order this list</a>
+              <a class="btn btn-ghost" href="#quote" id="sampleBtn">25 free samples</a>
+            </div>
+          </div>
+        </div>
+        <div class="preview-h">
+          <span class="eyebrow">Preview of matching records</span>
+          <span class="hint" id="filterSummary"></span>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Seller</th><th>Marketplace</th><th>Category</th><th>Revenue band</th><th>Ratings</th><th>Decision maker</th><th>Email</th><th>Address</th></tr></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+        <p class="tbl-note">Fictional records shown to illustrate the file layout. Contact fields are masked until purchase. The full file ships as CSV or XLSX with 40 columns.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="market">
+  <div class="wrap">
+    <div class="sec-head">
+      <div style="display:flex;flex-direction:column;gap:12px"><span class="eyebrow">The seller market, 2026</span><h2>Fewer Amazon sellers, and more money in each one.</h2></div>
+      <p>Amazon's active seller count has fallen for two years while sales concentrate at the top. A seller list is only useful if it separates the few thousand businesses that move volume from the long tail of dormant accounts.</p>
+    </div>
+    <div class="facts">
+      <div class="fact"><span class="big num">500K</span><p>Active Amazon sellers in March 2026, down 14% from 584,000 in January 2025.</p><cite>Marketplace Pulse, via <a href="https://www.modernretail.co/operations/marketplace-briefing-amazons-seller-count-falls-as-revenue-concentrates-among-top-sellers/" target="_blank" rel="noopener">Modern Retail</a>, Apr 2026</cite></div>
+      <div class="fact"><span class="big num">&lt;8,000</span><p>Sellers account for about half of Amazon US third-party sales. A few years ago it took roughly 15,000.</p><cite>Marketplace Pulse, via <a href="https://www.modernretail.co/operations/marketplace-briefing-amazons-seller-count-falls-as-revenue-concentrates-among-top-sellers/" target="_blank" rel="noopener">Modern Retail</a>, Apr 2026</cite></div>
+      <div class="fact"><span class="big num">165K</span><p>New Amazon sellers registered in 2025, the lowest year since tracking began in 2015.</p><cite>Marketplace Pulse, via <a href="https://www.modernretail.co/operations/marketplace-briefing-amazons-seller-count-falls-as-revenue-concentrates-among-top-sellers/" target="_blank" rel="noopener">Modern Retail</a>, Apr 2026</cite></div>
+      <div class="fact"><span class="big num">2.8M</span><p>Live Shopify stores as of May 2026. About half of those with a known country are in the US.</p><cite>Store Leads, via <a href="https://storeinspect.com/blog/how-many-shopify-stores-are-there" target="_blank" rel="noopener">StoreInspect</a>, May 2026</cite></div>
+    </div>
+    <div class="takeaway">
+      <span class="eyebrow">What that means for your list</span>
+      <p>Sellers are paying more in fees, ads and tariffs, so they are actively shopping for agencies, cheaper fulfilment, software and working capital. Every record here carries a revenue band and an activity date, so you spend outreach on sellers who are still trading.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="marketplaces">
+  <div class="wrap">
+    <div class="sec-head">
+      <div style="display:flex;flex-direction:column;gap:12px"><span class="eyebrow">Coverage</span><h2>13 marketplaces, one file format.</h2></div>
+      <p>Counts are sellers with at least one verified contact route and sales activity in the last 90 days. Click a marketplace to load it into the list builder.</p>
+    </div>
+    <div class="mk-grid" id="mkGrid"></div>
+  </div>
+</section>
+
+<section class="band" id="buyers">
+  <div class="wrap">
+    <div class="sec-head">
+      <div style="display:flex;flex-direction:column;gap:12px"><span class="eyebrow">Who uses it</span><h2>Built for companies that sell to sellers.</h2></div>
+      <p>Each preset loads the filters that group usually starts with. Adjust from there.</p>
+    </div>
+    <div class="buyers" id="buyerGrid"></div>
+  </div>
+</section>
+
+<section class="band" id="fields">
+  <div class="wrap fields-layout">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <span class="eyebrow">Data fields</span>
+      <h2>40 columns per seller. These are the ones people filter on.</h2>
+      <p style="color:var(--muted)">Fill rate is the share of records in the full database where the field is populated. Business name and address come from the seller disclosures that high-volume marketplace sellers must publish under the US INFORM Consumers Act and the EU Digital Services Act.</p>
+    </div>
+    <div class="tbl-wrap" style="border:1px solid var(--line);border-radius:10px;background:var(--surface)">
+      <table class="fields-tbl">
+        <thead><tr><th>Field</th><th>What it contains</th><th>Fill rate</th></tr></thead>
+        <tbody id="fieldRows"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="process">
+  <div class="wrap">
+    <div class="sec-head">
+      <div style="display:flex;flex-direction:column;gap:12px"><span class="eyebrow">How a record is built</span><h2>From storefront to verified contact.</h2></div>
+      <p>Every record goes through the same four steps, in this order, and is refreshed monthly.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="k">Step 1 · Discover</span><h3>Index the storefront</h3><p>Seller ID, storefront URL, listings, ratings and category come from public marketplace pages and store platform data.</p></div>
+      <div class="step"><span class="k">Step 2 · Resolve</span><h3>Match to a company</h3><p>The seller's disclosed legal name and address are matched to a registered business and its own website domain.</p></div>
+      <div class="step"><span class="k">Step 3 · Contact</span><h3>Find the decision maker</h3><p>Founder, owner or ecommerce lead, with a work email checked at the mail server and a LinkedIn profile.</p></div>
+      <div class="step"><span class="k">Step 4 · Refresh</span><h3>Recheck every 30 days</h3><p>Sellers with no new ratings or listings in 90 days are flagged inactive and dropped from default counts.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <div style="display:flex;flex-direction:column;gap:12px"><span class="eyebrow">Pricing</span><h2>Pay per record, or subscribe to the whole ledger.</h2></div>
+      <p>Per-record pricing drops as the list grows. Records that bounce within 30 days are replaced at no charge.</p>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <span class="eyebrow">One-off list</span>
+        <div class="price num">$0.18<small> per record</small></div>
+        <p style="color:var(--muted)">For a single campaign into a defined segment.</p>
+        <ul><li>Any filters from the list builder</li><li>CSV or XLSX, 40 columns</li><li>Bounce replacement for 30 days</li><li>Minimum order $500</li></ul>
+        <a class="btn btn-ghost" href="#quote" data-plan="One-off list">Build a list</a>
+      </div>
+      <div class="plan feature">
+        <span class="eyebrow">Marketplace subscription</span>
+        <div class="price num">$1,490<small> per month</small></div>
+        <p style="color:var(--muted)">For agencies and SaaS teams prospecting every week.</p>
+        <ul><li>Unlimited exports for 3 marketplaces</li><li>Monthly refresh and new-seller alerts</li><li>HubSpot and Salesforce sync</li><li>Up to 5 seats</li></ul>
+        <a class="btn btn-primary" href="#quote" data-plan="Marketplace subscription">Start a subscription</a>
+      </div>
+      <div class="plan">
+        <span class="eyebrow">Data licence and API</span>
+        <div class="price">Custom</div>
+        <p style="color:var(--muted)">For platforms, lenders and data teams that need the full ledger.</p>
+        <ul><li>All 13 marketplaces</li><li>REST API and weekly delta files</li><li>Historical revenue band changes</li><li>Redistribution terms available</li></ul>
+        <a class="btn btn-ghost" href="#quote" data-plan="Data licence and API">Talk to sales</a>
+      </div>
+    </div>
+    <div class="tiers" style="border:1px solid var(--line);border-radius:10px;background:var(--surface)">
+      <table>
+        <thead><tr><th>One-off list size</th><th>Rate per record</th><th>Example cost</th></tr></thead>
+        <tbody id="tierRows"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="faq">
+  <div class="wrap two">
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <span class="eyebrow">Compliance</span>
+      <h2>Where the data comes from, and how you can use it.</h2>
+      <div class="comp">
+        <div><b>Sources</b><p>Public storefronts, mandatory seller disclosures, company registries and business websites. No data is taken from behind a marketplace login.</p></div>
+        <div><b>US</b><p>Contacts are business contacts. Outreach must follow CAN-SPAM: honest subject lines, a physical address and a working unsubscribe.</p></div>
+        <div><b>EU and UK</b><p>Records for EU and UK sellers are supplied under legitimate interest with a documented assessment. Personal contact fields can be excluded at checkout.</p></div>
+        <div><b>Opt-out</b><p>Any seller can remove their record through a public form. Removals propagate to all customers at the next refresh.</p></div>
+      </div>
+    </div>
+    <div>
+      <span class="eyebrow">Questions buyers ask</span>
+      <details open><summary>How accurate are the revenue bands?</summary><p>They are modelled estimates built from review velocity, price and category rank history. Treat them as a way to rank sellers, not as reported revenue.</p></details>
+      <details><summary>Can I get Amazon 1P vendors as well as 3P sellers?</summary><p>Yes. Brands that sell to Amazon wholesale are tagged as 1P vendors and can be added as a filter on request.</p></details>
+      <details><summary>What happens if an email bounces?</summary><p>Send us the bounce report within 30 days of delivery and every hard-bounced record is replaced with a fresh one that matches the same filters.</p></details>
+      <details><summary>Do you cover India and the Gulf?</summary><p>Yes. Amazon.in, Flipkart, Amazon.ae and noon are covered, with company matching against Indian MCA and UAE trade licence records where available.</p></details>
+      <details><summary>How fast is delivery?</summary><p>Lists up to 50,000 records are delivered the same business day. Larger or custom-filtered lists take up to three days.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="quote" id="quote">
+  <div class="wrap quote-grid">
+    <div>
+      <span class="eyebrow">Get a quote</span>
+      <h2 style="margin-top:12px">Send your filters. Get a count, a price and 25 sample records.</h2>
+      <p style="margin-top:14px">The list you built above is attached automatically. We reply within one business day.</p>
+      <div class="summary-box" id="quoteSummary"></div>
+    </div>
+    <form class="qf" id="qf" novalidate>
+      <label>Full name<input id="q-name" name="name" autocomplete="name" required></label>
+      <label>Work email<input id="q-email" name="email" type="email" autocomplete="email" required></label>
+      <label>Company<input id="q-co" name="company" autocomplete="organization"></label>
+      <label>What you sell to sellers
+        <select id="q-type" name="type">
+          <option>Amazon or marketplace agency</option><option>Seller software</option><option>3PL or prep centre</option><option>Lending or payments</option><option>Packaging, sourcing or freight</option><option>Other</option>
+        </select></label>
+      <label>Plan<select id="q-plan" name="plan"><option>One-off list</option><option>Marketplace subscription</option><option>Data licence and API</option><option>Free samples only</option></select></label>
+      <label>Delivery<select id="q-fmt" name="format"><option>CSV</option><option>XLSX</option><option>HubSpot sync</option><option>Salesforce sync</option></select></label>
+      <label class="full">Anything else<textarea id="q-notes" name="notes" rows="3" placeholder="Countries to exclude, fields you do not need, timing"></textarea></label>
+      <button class="btn btn-primary" type="submit">Request quote</button>
+      <div class="qf-err" id="qfErr" hidden></div>
+      <div class="qf-msg" id="qfMsg" hidden></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>SellerLedger. Seller data for companies that sell to sellers.</span><span>Amazon, Shopify, Walmart and other names are trademarks of their owners. SellerLedger is not affiliated with any marketplace.</span></div></footer>
+
+<script>
+(function(){
+const MK=[
+ {id:"amz-us",name:"Amazon.com",region:"US",n:182000},
+ {id:"amz-uk",name:"Amazon.co.uk",region:"UK",n:64000},
+ {id:"amz-de",name:"Amazon.de",region:"DE",n:58000},
+ {id:"amz-in",name:"Amazon.in",region:"IN",n:71000},
+ {id:"amz-ae",name:"Amazon.ae",region:"AE",n:9400},
+ {id:"shopify",name:"Shopify",region:"GLOBAL",n:410000},
+ {id:"walmart",name:"Walmart",region:"US",n:41000},
+ {id:"ebay",name:"eBay",region:"GLOBAL",n:96000},
+ {id:"etsy",name:"Etsy",region:"GLOBAL",n:88000},
+ {id:"flipkart",name:"Flipkart",region:"IN",n:52000},
+ {id:"noon",name:"noon",region:"AE / SA",n:7800},
+ {id:"meli",name:"Mercado Libre",region:"LATAM",n:38000},
+ {id:"tiktok",name:"TikTok Shop",region:"US / UK",n:27000}
+];
+const CAT=[["Home & Kitchen",.18],["Apparel",.14],["Beauty",.12],["Health",.10],["Electronics",.09],["Sports & Outdoors",.07],["Pet",.05],["Toys",.05],["Automotive",.05],["Grocery",.04],["Office",.04],["Baby",.03]];
+const REV=[["Under $10K",.52],["$10K to $100K",.31],["$100K to $1M",.14],["$1M+",.03]];
+const FUL=[["any","Any",1],["fba","FBA",.64],["fbm","FBM",.36]];
+const NEED=[["email","Verified email",.78],["li","Decision maker on LinkedIn",.58],["phone","Direct phone",.46],["addr","Verified address",.83]];
+const TIERS=[[0,5000,.18,"Starter"],[5000,25000,.12,"Growth"],[25000,100000,.08,"Volume"],[100000,Infinity,.05,"Bulk"]];
+
+const S={mk:new Set(["amz-us"]),cat:new Set(),rev:new Set(["$10K to $100K","$100K to $1M"]),ful:"any",need:new Set(["email"])};
+const $=id=>document.getElementById(id);
+const fmt=n=>n.toLocaleString("en-US");
+const money=n=>"$"+Math.round(n).toLocaleString("en-US");
+
+function chip(label,pressed,onClick,extra){const b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed",pressed);b.innerHTML=label+(extra?" <small>"+extra+"</small>":"");b.onclick=onClick;return b}
+function toggle(set,v){set.has(v)?set.delete(v):set.add(v);render()}
+
+function renderFilters(){
+  const m=$("f-mk");m.innerHTML="";MK.forEach(x=>m.appendChild(chip(x.name,S.mk.has(x.id),()=>{toggle(S.mk,x.id)},x.region)));
+  const c=$("f-cat");c.innerHTML="";CAT.forEach(([n])=>c.appendChild(chip(n,S.cat.has(n),()=>toggle(S.cat,n))));
+  const r=$("f-rev");r.innerHTML="";REV.forEach(([n])=>r.appendChild(chip(n,S.rev.has(n),()=>toggle(S.rev,n))));
+  const f=$("f-ful");f.innerHTML="";FUL.forEach(([id,l])=>{const b=document.createElement("button");b.type="button";b.textContent=l;b.setAttribute("aria-pressed",S.ful===id);b.onclick=()=>{S.ful=id;render()};f.appendChild(b)});
+  const nd=$("f-need");nd.innerHTML="";NEED.forEach(([id,l])=>nd.appendChild(chip(l,S.need.has(id),()=>toggle(S.need,id))));
+}
+function compute(){
+  const catShare=S.cat.size?CAT.filter(c=>S.cat.has(c[0])).reduce((a,c)=>a+c[1],0):1;
+  const revShare=S.rev.size?REV.filter(r=>S.rev.has(r[0])).reduce((a,r)=>a+r[1],0):1;
+  const needShare=NEED.filter(n=>S.need.has(n[0])).reduce((a,n)=>a*n[2],1);
+  const fulShare=FUL.find(f=>f[0]===S.ful)[2];
+  let total=0;
+  MK.forEach(m=>{if(!S.mk.has(m.id))return;const isAmz=m.id.startsWith("amz");total+=m.n*catShare*revShare*needShare*(isAmz?fulShare:1)});
+  return Math.round(total/10)*10;
+}
+function tierFor(n){return TIERS.find(t=>n>=t[0]&&n<t[1])}
+
+let shown=0,anim;
+function animateTo(n){cancelAnimationFrame(anim);const start=shown,t0=performance.now(),d=450;
+  const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce){shown=n;$("count").textContent=fmt(n);return}
+  const step=t=>{const p=Math.min(1,(t-t0)/d),e=1-Math.pow(1-p,3);shown=Math.round(start+(n-start)*e);$("count").textContent=fmt(shown);if(p<1)anim=requestAnimationFrame(step)};anim=requestAnimationFrame(step)}
+
+/* fictional sample rows */
+function rng(seed){let s=seed>>>0||1;return()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return((s>>>0)%100000)/100000}}
+const A=["Northpeak","Copperleaf","Bluefin","Harbor Lane","Tallgrass","Brightwell","Oakmere","Saltmarsh","Kestrel","Juniper Row","Lumen","Riverstone","Cobalt Bay","Maple & Finch","Sundara","Veda","Orchid Loom","Desert Rose","Fernhill","Ironbark"];
+const B=["Home","Goods","Supply Co.","Living","Labs","Outfitters","Naturals","Trading","Essentials","Brands"];
+const F=["Aarav","Priya","James","Sofia","Daniel","Mei","Omar","Hannah","Lukas","Ana","Rahul","Grace","Yusuf","Emma","Karan","Leah"];
+const L=["M.","S.","K.","R.","T.","P.","B.","D.","A.","H."];
+const ROLE=["Founder","Owner","CEO","Head of Ecommerce","Co-founder","Marketplace Manager"];
+const CITY={"US":["Austin, TX","Newark, NJ","Phoenix, AZ","Miami, FL","Columbus, OH"],"UK":["Leeds","Manchester","Bristol"],"DE":["Hamburg","Leipzig","Köln"],"IN":["Bengaluru","Surat","Jaipur","Pune"],"AE":["Dubai","Sharjah"],"AE / SA":["Dubai","Riyadh"],"GLOBAL":["Toronto","Sydney","Shenzhen","Austin, TX"],"LATAM":["São Paulo","CDMX"],"US / UK":["Los Angeles, CA","London"]};
+function sid(r){const ch="ABCDEFGHJKLMNPQRSTUVWXYZ0123456789";let s="A";for(let i=0;i<13;i++)s+=ch[Math.floor(r()*ch.length)];return s}
+function rows(){
+  const key=[...S.mk,...S.cat,...S.rev,S.ful,...S.need].join("|");let h=7;for(const c of key)h=(h*31+c.charCodeAt(0))|0;const r=rng(h);
+  const mks=MK.filter(m=>S.mk.has(m.id));const cats=S.cat.size?[...S.cat]:CAT.map(c=>c[0]);const revs=S.rev.size?[...S.rev]:REV.map(x=>x[0]);
+  const tb=$("rows");tb.innerHTML="";
+  if(!mks.length){tb.innerHTML='<tr><td colspan="8" style="color:var(--muted);padding:22px 14px">Select at least one marketplace to preview records.</td></tr>';return}
+  for(let i=0;i<8;i++){
+    const m=mks[Math.floor(r()*mks.length)],cat=cats[Math.floor(r()*cats.length)],rev=revs[Math.floor(r()*revs.length)];
+    const name=A[Math.floor(r()*A.length)]+" "+B[Math.floor(r()*B.length)];
+    const dom=name.toLowerCase().replace(/[^a-z]/g,"").slice(0,14)+(m.region==="IN"?".in":m.region==="UK"?".co.uk":m.region==="DE"?".de":".com");
+    const f=F[Math.floor(r()*F.length)],l=L[Math.floor(r()*L.length)],role=ROLE[Math.floor(r()*ROLE.length)];
+    const isAmz=m.id.startsWith("amz");const ful=isAmz?(S.ful==="any"?(r()<.64?"FBA":"FBM"):S.ful.toUpperCase()):"";
+    const rating=(4.2+r()*0.75).toFixed(1),cnt=Math.floor(80+r()*(rev==="$1M+"?60000:rev==="$100K to $1M"?12000:2500));
+    const city=(CITY[m.region]||CITY.GLOBAL)[Math.floor(r()*(CITY[m.region]||CITY.GLOBAL).length)];
+    const id=m.id==="shopify"?dom:(isAmz?sid(r):m.name.toLowerCase().replace(/\s/g,"")+"/"+name.split(" ")[0].toLowerCase());
+    tb.insertAdjacentHTML("beforeend",`<tr>
+      <td><div class="seller">${name}</div><div class="sid">${id}</div></td>
+      <td>${m.name} ${ful?`<span class="pill acc">${ful}</span>`:""}</td>
+      <td>${cat}</td>
+      <td class="num">${rev}</td>
+      <td class="stars num">${rating} · ${fmt(cnt)}</td>
+      <td>${f} ${l} <span class="sid">${role}</span></td>
+      <td><span class="masked">${f[0].toLowerCase()}•••@${dom}</span> <span class="pill ok">verified</span></td>
+      <td>${city}</td></tr>`);
+  }
+}
+function summaryText(){
+  const mk=MK.filter(m=>S.mk.has(m.id)).map(m=>m.name);
+  return {mk:mk.length?mk.join(", "):"None",cat:S.cat.size?[...S.cat].join(", "):"Any",rev:S.rev.size?[...S.rev].join(", "):"Any",ful:FUL.find(f=>f[0]===S.ful)[1],need:S.need.size?NEED.filter(n=>S.need.has(n[0])).map(n=>n[1]).join(", "):"No requirement"};
+}
+function render(){
+  renderFilters();
+  const n=compute();animateTo(n);
+  const t=tierFor(Math.max(n,1));$("rate").textContent="$"+t[2].toFixed(2);$("tier").textContent=t[3];
+  $("price").textContent=n?money(Math.max(500,n*t[2])):"$0";
+  const s=summaryText();
+  $("filterSummary").textContent=s.mk+" · "+s.rev;
+  $("quoteSummary").innerHTML=`<div>Marketplaces: ${s.mk}</div><div>Categories: ${s.cat}</div><div>Revenue: ${s.rev}</div><div>Amazon fulfilment: ${s.ful}</div><div>Must include: ${s.need}</div><div style="margin-top:8px">Estimated records: ${fmt(n)} · List price ${n?money(Math.max(500,n*t[2])):"$0"}</div>`;
+  rows();
+  try{localStorage.setItem("sl-filters",JSON.stringify({mk:[...S.mk],cat:[...S.cat],rev:[...S.rev],ful:S.ful,need:[...S.need]}))}catch(e){}
+}
+document.querySelectorAll("[data-clear]").forEach(b=>b.onclick=()=>{const k=b.dataset.clear;if(k==="mk"){MK.forEach(m=>S.mk.add(m.id))}else S[k].clear();render()});
+
+/* marketplace grid */
+const max=Math.max(...MK.map(m=>m.n));
+MK.forEach(m=>{const d=document.createElement("button");d.type="button";d.className="mk";d.style.cssText="border:0;text-align:left;cursor:pointer;font:inherit;color:inherit";
+  d.innerHTML=`<div class="mk-top"><h3>${m.name}</h3><span class="region">${m.region}</span></div><div class="n num">${fmt(m.n)}</div><div class="bar"><span style="width:${Math.max(3,m.n/max*100)}%"></span></div><div class="sub">active sellers with contacts</div>`;
+  d.onclick=()=>{S.mk=new Set([m.id]);render();document.getElementById("builder").scrollIntoView({behavior:"smooth",block:"start"})};$("mkGrid").appendChild(d)});
+
+/* buyer presets */
+const P=[
+ {t:"Amazon and marketplace agencies",d:"Find brands big enough to pay a retainer and small enough to still run their own ads.",f:{mk:["amz-us","amz-uk","amz-de"],cat:[],rev:["$10K to $100K","$100K to $1M"],ful:"any",need:["email","li"]}},
+ {t:"3PLs and prep centres",d:"Sellers who ship themselves today are the ones shopping for fulfilment when fees rise.",f:{mk:["amz-us","walmart","shopify"],cat:[],rev:["$100K to $1M","$1M+"],ful:"fbm",need:["phone","addr"]}},
+ {t:"Seller software",d:"Repricers, analytics, review and inventory tools selling into multi-channel sellers.",f:{mk:["amz-us","amz-uk","shopify","walmart","ebay"],cat:[],rev:["$10K to $100K","$100K to $1M"],ful:"any",need:["email"]}},
+ {t:"Lenders and payments",d:"Revenue-based finance and payout providers targeting sellers with steady sales history.",f:{mk:["amz-us","amz-uk","shopify","walmart"],cat:[],rev:["$100K to $1M","$1M+"],ful:"any",need:["email","phone"]}},
+ {t:"Packaging, sourcing and freight",d:"Private-label sellers in physical categories who reorder stock every quarter.",f:{mk:["amz-us","shopify"],cat:["Home & Kitchen","Beauty","Pet"],rev:["$10K to $100K","$100K to $1M"],ful:"any",need:["addr","phone"]}},
+ {t:"India and Gulf cross-border",d:"Sellers on Amazon.in, Flipkart, Amazon.ae and noon, for export, logistics and compliance services.",f:{mk:["amz-in","flipkart","amz-ae","noon"],cat:[],rev:["$10K to $100K","$100K to $1M"],ful:"any",need:["email","phone"]}}
+];
+P.forEach(p=>{const mkN=p.f.mk.map(id=>MK.find(m=>m.id===id).name).join(", ");
+  const el=document.createElement("div");el.className="buyer";
+  el.innerHTML=`<h3>${p.t}</h3><p>${p.d}</p><div class="preset">${mkN}<br>${p.f.rev.join(", ")}${p.f.ful!=="any"?" · "+p.f.ful.toUpperCase():""}</div>`;
+  const b=document.createElement("button");b.type="button";b.className="btn btn-ghost";b.textContent="Load this list";
+  b.onclick=()=>{S.mk=new Set(p.f.mk);S.cat=new Set(p.f.cat);S.rev=new Set(p.f.rev);S.ful=p.f.ful;S.need=new Set(p.f.need);render();document.getElementById("builder").scrollIntoView({behavior:"smooth",block:"start"})};
+  el.appendChild(b);$("buyerGrid").appendChild(el)});
+
+/* fields */
+const FIELDS=[
+ ["Storefront",null],
+ ["Seller ID","Marketplace merchant token or store domain",100],
+ ["Storefront URL","Direct link to the seller page",100],
+ ["Top category","Category with the most active listings",98],
+ ["Ratings count and score","Lifetime ratings and average score",96],
+ ["Active listings","Live product count at last refresh",94],
+ ["Fulfilment","FBA, FBM or both (Amazon)",91],
+ ["Est. revenue band","Monthly revenue band, modelled",88],
+ ["Company",null],
+ ["Legal business name","As disclosed on the storefront",93],
+ ["Verified address","Registered business address",83],
+ ["Company website","Brand's own domain, if any",71],
+ ["Other marketplaces","Same business on other channels",64],
+ ["Contact",null],
+ ["Decision maker","Name and role of founder or ecommerce lead",81],
+ ["Work email","Checked at the mail server before delivery",78],
+ ["LinkedIn profile","Decision maker's profile URL",58],
+ ["Direct phone","Business line or mobile",46]
+];
+FIELDS.forEach(([n,d,p])=>{$("fieldRows").insertAdjacentHTML("beforeend",p==null?`<tr class="group-row"><td colspan="3">${n}</td></tr>`:`<tr><td>${n}</td><td style="color:var(--muted)">${d}</td><td><div class="fill"><div class="track"><span style="width:${p}%"></span></div><b class="num">${p}%</b></div></td></tr>`)});
+
+/* tiers */
+[["Up to 5,000",.18,2500],["5,000 to 25,000",.12,10000],["25,000 to 100,000",.08,50000],["100,000+",.05,150000]].forEach(([l,r,ex])=>$("tierRows").insertAdjacentHTML("beforeend",`<tr><td>${l}</td><td class="num mono">$${r.toFixed(2)}</td><td class="num mono">${fmt(ex)} records = ${money(Math.max(500,ex*r))}</td></tr>`));
+
+/* plan buttons preselect */
+document.querySelectorAll("[data-plan]").forEach(a=>a.addEventListener("click",()=>{$("q-plan").value=a.dataset.plan}));
+$("sampleBtn").addEventListener("click",()=>{$("q-plan").value="Free samples only"});
+$("orderBtn").addEventListener("click",()=>{$("q-plan").value="One-off list"});
+
+/* form */
+$("qf").addEventListener("submit",e=>{e.preventDefault();const err=$("qfErr"),ok=$("qfMsg");err.hidden=true;ok.hidden=true;
+  const name=$("q-name").value.trim(),email=$("q-email").value.trim();
+  if(!name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent="Add your name and a valid work email so we can send the quote.";err.hidden=false;return}
+  ok.textContent="Request captured in this prototype. Nothing was sent. In production this goes to the sales inbox and CRM with your filters attached.";ok.hidden=false});
+
+/* restore */
+try{const s=JSON.parse(localStorage.getItem("sl-filters")||"null");if(s&&s.mk){S.mk=new Set(s.mk);S.cat=new Set(s.cat);S.rev=new Set(s.rev);S.ful=s.ful||"any";S.need=new Set(s.need)}}catch(e){}
+render();
+})();
+</script>
