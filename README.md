@@ -6,9 +6,26 @@ Prototype site for a standalone brand selling Amazon and ecommerce seller contac
 
 - `public/index.html`: single-file prototype. Live list builder (marketplace, category, revenue band, FBA/FBM, required fields) with record count and price estimate, market stats, marketplace coverage, buyer presets, data fields, pricing, compliance, FAQ and quote form.
 
-## Hosting
+## Hosting (Cloudflare Workers via Wrangler)
 
-Cloudflare Worker `sellerledger` serving static assets from `public/` (see `wrangler.jsonc`). Workers Builds deploys every push to `main`. The page carries `noindex` until counts and prices are final; remove that meta tag at launch.
+Assets-only Worker named `sellerledger`. There is no Worker script: Cloudflare serves everything in `public/` directly, as configured in `wrangler.jsonc`.
+
+- `public/index.html`: the site
+- `public/404.html`: served with a 404 status for unknown paths
+- `public/_headers`: security headers on every response
+
+Commands (Node 20+):
+
+```
+npm install
+npm run dev       # local preview at http://localhost:8787
+npm run check     # wrangler deploy --dry-run, validates config and assets
+npm run deploy    # wrangler deploy, needs `npx wrangler login` or CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID
+```
+
+For Workers Builds (deploy on every push to `main`), connect this repo in the Cloudflare dashboard and set the deploy command to `npx wrangler deploy`.
+
+The page carries `noindex` until counts and prices are final. Remove that meta tag at launch.
 
 ## Status
 

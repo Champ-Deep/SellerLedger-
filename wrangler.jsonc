@@ -1,7 +1,16 @@
 {
+  "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "sellerledger",
-  "compatibility_date": "2026-09-30",
+  // Assets-only Worker: no "main" script, Cloudflare serves files from ./public directly.
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "preview_urls": true,
   "assets": {
-    "directory": "./public"
+    "directory": "./public",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "observability": {
+    "enabled": true
   }
 }

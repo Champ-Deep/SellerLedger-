@@ -1,0 +1,15 @@
+{
+  "name": "sellerledger",
+  "version": "0.1.0",
+  "private": true,
+  "description": "SellerLedger prototype site, deployed as a Cloudflare Workers static-assets Worker via Wrangler.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "check": "wrangler deploy --dry-run",
+    "deploy": "wrangler deploy",
+    "preview": "wrangler versions upload"
+  },
+  "devDependencies": {
+    "wrangler": "^4.145.0"
+  }
+}
