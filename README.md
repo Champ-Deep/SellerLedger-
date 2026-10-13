@@ -1,6 +1,6 @@
 # SellerLedger (working name)
 
-Prototype site for a standalone brand selling Amazon and ecommerce seller contact lists to B2B buyers (agencies, seller software, 3PLs, lenders, packaging and freight).
+Prototype site for a standalone brand selling Amazon and ecommerce seller contact lists to B2B buyers (agencies, advertising and marketing services, IT services and seller software, logistics, product imaging, lenders).
 
 ## What is here
 

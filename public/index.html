@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Amazon and ecommerce seller contact lists for agencies, seller software, 3PLs and lenders. Build a list by marketplace, category and revenue band.">
+<meta name="description" content="Amazon and ecommerce seller contact lists for agencies, marketing and IT services, logistics and creative teams. Build a list by marketplace, category and revenue band.">
 <meta name="robots" content="noindex, nofollow">
 <title>SellerLedger</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -168,6 +168,14 @@ section.band{padding-block:clamp(48px,6vw,96px);border-top:1px solid var(--line)
 .buyer .preset{font-family:var(--mono);font-size:12px;color:var(--ink);background:var(--sunk);padding:8px 10px;border-radius:var(--r)}
 .buyer button{align-self:flex-start;margin-top:auto}
 
+/* demand strip */
+.demand{margin-top:28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:22px}
+.demand .big{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 122;font-size:46px;line-height:.95;letter-spacing:-.02em;display:block}
+.demand p{color:var(--muted);font-size:14px;margin-top:8px}
+.demand .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.demand .src{grid-column:1/-1;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin:0}
+@media (max-width:900px){.demand{grid-template-columns:1fr}}
+
 /* fields */
 .fields-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:clamp(20px,4vw,64px)}
 @media (max-width:1000px){.fields-layout{grid-template-columns:1fr}}
@@ -263,7 +271,7 @@ footer .wrap{display:flex;gap:20px;justify-content:space-between;flex-wrap:wrap}
     <div class="hero-head">
       <h1>Amazon and ecommerce <em>sellers</em>, with a person to contact.</h1>
       <div style="display:flex;flex-direction:column;gap:16px">
-        <span class="eyebrow">Seller lists for agencies, SaaS, 3PLs and lenders</span>
+        <span class="eyebrow">Seller lists for agencies, marketing, software, logistics and creative services</span>
         <p>Pick the marketplaces, categories and revenue band you sell into. The count updates as you go. Order the list, or take 25 free sample records first.</p>
       </div>
     </div>
@@ -362,9 +370,29 @@ footer .wrap{display:flex;gap:20px;justify-content:space-between;flex-wrap:wrap}
   <div class="wrap">
     <div class="sec-head">
       <div style="display:flex;flex-direction:column;gap:12px"><span class="eyebrow">Who uses it</span><h2>Built for companies that sell to sellers.</h2></div>
-      <p>Each preset loads the filters that group usually starts with. Adjust from there.</p>
+      <p>Each preset loads the filters that group usually starts with. The groupings follow the companies that actually enquired in our first 40 days. Adjust from there.</p>
     </div>
     <div class="buyers" id="buyerGrid"></div>
+    <div class="demand" aria-label="Who has been buying lists">
+      <div>
+        <span class="eyebrow">Demand so far</span>
+        <span class="big num">21</span>
+        <p>List enquiries in the first 40 days, at 2 to 3 new ones a day, from companies that sell to Amazon and marketplace sellers.</p>
+      </div>
+      <div>
+        <span class="eyebrow">Industries that enquired</span>
+        <div class="tags">
+          <span class="pill">IT Services &amp; Software</span><span class="pill">Advertising Services</span><span class="pill">Marketing Services</span><span class="pill">Account Management</span><span class="pill">Amazon Agency</span><span class="pill">Logistics</span><span class="pill">Commercial Photo Editing</span>
+        </div>
+      </div>
+      <div>
+        <span class="eyebrow">Titles that reached out</span>
+        <div class="tags">
+          <span class="pill acc">CEO &amp; Founder</span><span class="pill acc">VP of Sales and Marketing</span><span class="pill acc">Amazon Account Manager</span><span class="pill acc">Sr. Amazon Advertising Manager</span><span class="pill acc">Chief GTM Engineer</span><span class="pill acc">Logistics Manager</span>
+        </div>
+      </div>
+      <p class="src">Source: Seller Ledger enquiry log, first 40 days to October 2026. Enquiring companies run from under $1M to $30M in annual revenue, mostly $1M to $5M. Counts per industry are not published.</p>
+    </div>
   </div>
 </section>
 
@@ -416,7 +444,7 @@ footer .wrap{display:flex;gap:20px;justify-content:space-between;flex-wrap:wrap}
       <div class="plan feature">
         <span class="eyebrow">Marketplace subscription</span>
         <div class="price num">$1,490<small> per month</small></div>
-        <p style="color:var(--muted)">For agencies and SaaS teams prospecting every week.</p>
+        <p style="color:var(--muted)">For agencies, marketing and software teams prospecting every week.</p>
         <ul><li>Unlimited exports for 3 marketplaces</li><li>Monthly refresh and new-seller alerts</li><li>HubSpot and Salesforce sync</li><li>Up to 5 seats</li></ul>
         <a class="btn btn-primary" href="#quote" data-plan="Marketplace subscription">Start a subscription</a>
       </div>
@@ -474,7 +502,7 @@ footer .wrap{display:flex;gap:20px;justify-content:space-between;flex-wrap:wrap}
       <label>Company<input id="q-co" name="company" autocomplete="organization"></label>
       <label>What you sell to sellers
         <select id="q-type" name="type">
-          <option>Amazon or marketplace agency</option><option>Seller software</option><option>3PL or prep centre</option><option>Lending or payments</option><option>Packaging, sourcing or freight</option><option>Other</option>
+          <option>Amazon or marketplace agency</option><option>Advertising or marketing services</option><option>IT services or seller software</option><option>Logistics, freight or 3PL</option><option>Product imaging or creative services</option><option>Lending or payments</option><option>Other</option>
         </select></label>
       <label>Plan<select id="q-plan" name="plan"><option>One-off list</option><option>Marketplace subscription</option><option>Data licence and API</option><option>Free samples only</option></select></label>
       <label>Delivery<select id="q-fmt" name="format"><option>CSV</option><option>XLSX</option><option>HubSpot sync</option><option>Salesforce sync</option></select></label>
@@ -603,12 +631,12 @@ MK.forEach(m=>{const d=document.createElement("button");d.type="button";d.classN
 
 /* buyer presets */
 const P=[
- {t:"Amazon and marketplace agencies",d:"Find brands big enough to pay a retainer and small enough to still run their own ads.",f:{mk:["amz-us","amz-uk","amz-de"],cat:[],rev:["$10K to $100K","$100K to $1M"],ful:"any",need:["email","li"]}},
- {t:"3PLs and prep centres",d:"Sellers who ship themselves today are the ones shopping for fulfilment when fees rise.",f:{mk:["amz-us","walmart","shopify"],cat:[],rev:["$100K to $1M","$1M+"],ful:"fbm",need:["phone","addr"]}},
- {t:"Seller software",d:"Repricers, analytics, review and inventory tools selling into multi-channel sellers.",f:{mk:["amz-us","amz-uk","shopify","walmart","ebay"],cat:[],rev:["$10K to $100K","$100K to $1M"],ful:"any",need:["email"]}},
- {t:"Lenders and payments",d:"Revenue-based finance and payout providers targeting sellers with steady sales history.",f:{mk:["amz-us","amz-uk","shopify","walmart"],cat:[],rev:["$100K to $1M","$1M+"],ful:"any",need:["email","phone"]}},
- {t:"Packaging, sourcing and freight",d:"Private-label sellers in physical categories who reorder stock every quarter.",f:{mk:["amz-us","shopify"],cat:["Home & Kitchen","Beauty","Pet"],rev:["$10K to $100K","$100K to $1M"],ful:"any",need:["addr","phone"]}},
- {t:"India and Gulf cross-border",d:"Sellers on Amazon.in, Flipkart, Amazon.ae and noon, for export, logistics and compliance services.",f:{mk:["amz-in","flipkart","amz-ae","noon"],cat:[],rev:["$10K to $100K","$100K to $1M"],ful:"any",need:["email","phone"]}}
+ {t:"Amazon and marketplace agencies",d:"Find brands big enough to pay a retainer and small enough to still run their own ads. Ads, listings and account management all sell to this group.",f:{mk:["amz-us","amz-uk","amz-de"],cat:[],rev:["$10K to $100K","$100K to $1M"],ful:"any",need:["email","li"]}},
+ {t:"Advertising and marketing services",d:"Performance, SEO and content teams selling to brands that already spend on ads and want more of the marketplace.",f:{mk:["amz-us","amz-uk","shopify"],cat:[],rev:["$10K to $100K","$100K to $1M"],ful:"any",need:["email","li"]}},
+ {t:"IT services and seller software",d:"Repricers, analytics, review and inventory tools, and the dev shops that build for multi-channel sellers.",f:{mk:["amz-us","amz-uk","shopify","walmart","ebay"],cat:[],rev:["$10K to $100K","$100K to $1M"],ful:"any",need:["email"]}},
+ {t:"Logistics, freight and 3PL",d:"Sellers who ship themselves today are the ones shopping for fulfilment when fees rise.",f:{mk:["amz-us","walmart","shopify"],cat:[],rev:["$100K to $1M","$1M+"],ful:"fbm",need:["phone","addr"]}},
+ {t:"Creative and product imaging",d:"Product photography, image editing and listing content studios selling to sellers with a catalogue to maintain.",f:{mk:["amz-us","shopify","etsy"],cat:["Apparel","Beauty","Home & Kitchen"],rev:["$10K to $100K","$100K to $1M"],ful:"any",need:["email"]}},
+ {t:"Lenders and payments",d:"Revenue-based finance and payout providers targeting sellers with steady sales history.",f:{mk:["amz-us","amz-uk","shopify","walmart"],cat:[],rev:["$100K to $1M","$1M+"],ful:"any",need:["email","phone"]}}
 ];
 P.forEach(p=>{const mkN=p.f.mk.map(id=>MK.find(m=>m.id===id).name).join(", ");
   const el=document.createElement("div");el.className="buyer";
