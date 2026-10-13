@@ -2,690 +2,932 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Amazon and ecommerce seller contact lists for agencies, marketing and IT services, logistics and creative teams. Build a list by marketplace, category and revenue band.">
-<meta name="robots" content="noindex, nofollow">
-<title>SellerLedger</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SellerLedger: Amazon and ecommerce seller contact lists</title>
+<meta name="description" content="Free audit of your seller contact file, then Amazon and ecommerce seller lists by marketplace, category and revenue band, with 25 matched sample records free.">
+<link rel="canonical" href="https://sellerledger.deep-ae0.workers.dev/">
+<link rel="alternate" type="text/markdown" href="https://sellerledger.deep-ae0.workers.dev/index.md">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SellerLedger: Free audit of your seller file">
+<meta property="og:description" content="Free audit of your seller contact file, then Amazon and ecommerce seller lists by marketplace, category and revenue band, with 25 matched sample records free.">
+<meta property="og:image" content="">
+<meta property="og:url" content="https://sellerledger.deep-ae0.workers.dev/">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://sellerledger.deep-ae0.workers.dev/#org", "name": "SellerLedger", "url": "https://sellerledger.deep-ae0.workers.dev/", "slogan": "Amazon and ecommerce sellers, with a person to contact", "email": "", "telephone": ""}, {"@type": "WebSite", "@id": "https://sellerledger.deep-ae0.workers.dev/#site", "name": "SellerLedger", "url": "https://sellerledger.deep-ae0.workers.dev/", "publisher": {"@id": "https://sellerledger.deep-ae0.workers.dev/#org"}}, {"@type": "Service", "name": "Free data foundation audit of your seller file", "description": "Audit of up to 50,000 rows in a seller contact file: contact coverage graded in the browser, then a coverage plan showing what can be appended (work email, direct phone, completed address) with 25 matched sample seller records, sent to a work email.", "provider": {"@id": "https://sellerledger.deep-ae0.workers.dev/#org"}, "serviceType": "Seller data audit and appending", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD", "eligibleQuantity": {"@type": "QuantitativeValue", "maxValue": 50000, "unitText": "contacts"}}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Where does my file go?", "acceptedAnswer": {"@type": "Answer", "text": "Nowhere at first. Your browser reads the file and builds the coverage report on your screen. We see rows only when you ask for the coverage plan, and only to match them against the ledger."}}, {"@type": "Question", "name": "How accurate are the revenue bands?", "acceptedAnswer": {"@type": "Answer", "text": "They are modeled estimates built from review velocity, price and category rank history. Treat them as a way to rank sellers, not as reported revenue."}}, {"@type": "Question", "name": "What happens if an email bounces?", "acceptedAnswer": {"@type": "Answer", "text": "Send us the bounce report within 30 days of delivery and every hard bounced record is replaced with a fresh one that matches the same filters."}}, {"@type": "Question", "name": "Where does the data come from?", "acceptedAnswer": {"@type": "Answer", "text": "Public storefronts, mandatory seller disclosures, company registries and business websites. No data is taken from behind a marketplace login."}}]}, {"@type": "ItemList", "name": "Email lists by buyer type", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Amazon marketplaces", "url": "https://sellerledger.deep-ae0.workers.dev/#lists"}, {"@type": "ListItem", "position": 2, "name": "Other marketplaces", "url": "https://sellerledger.deep-ae0.workers.dev/#lists"}, {"@type": "ListItem", "position": 3, "name": "By fulfillment", "url": "https://sellerledger.deep-ae0.workers.dev/#lists"}, {"@type": "ListItem", "position": 4, "name": "By monthly revenue", "url": "https://sellerledger.deep-ae0.workers.dev/#lists"}, {"@type": "ListItem", "position": 5, "name": "By category", "url": "https://sellerledger.deep-ae0.workers.dev/#lists"}, {"@type": "ListItem", "position": 6, "name": "By contact route", "url": "https://sellerledger.deep-ae0.workers.dev/#lists"}]}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Kalam:wght@400;700&display=swap">
 <style>
-body{margin:0}img{max-width:100%}[hidden]{display:none!important}
-/* Layout: full-bleed working surface. The list builder IS the hero; everything after it explains the data behind the count. */
+/* Layout: full-width ledger. A strategist's desk: ruled paper, red pencil for problems, green for verified, blue pencil for next steps. Demonstration hero, then sections that change shape as the argument moves. */
 :root{
-  --bg:#EEF1F4;          /* cool warehouse-floor grey */
-  --surface:#FFFFFF;
-  --sunk:#E3E8EE;
-  --ink:#0C1A24;
-  --muted:#51606C;
-  --line:#CDD5DD;
-  --accent:#2447E0;      /* cobalt, the "scan" colour */
-  --accent-ink:#FFFFFF;
-  --accent-soft:#DCE3FF;
-  --verified:#0E8A63;
-  --verified-soft:#D5F0E6;
-  --flag:#B86B00;
-  --flag-soft:#FBEBCF;
-  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
-  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-  --r:6px;
+  --paper:#EEF1F4; --sheet:#FFFFFF; --rule:#CDD5DD; --ink:#0C1A24; --ink-2:#48545E; --mute:#57606A;
+  --red:#A11F19; --red-soft:#F8E4E2; --brand-red:#2447E0; --brand-green:#0B6B4E; --green:#0B6B4E; --green-soft:#D5F0E6; --blue:#223FC7; --blue-soft:#DCE3FF; --amber:#8A5200; --amber-soft:#FBEBCF;
+  --night:#16171A; --night-fg:#EDEBE5; --shadow:0 1px 0 rgba(23,24,27,.04),0 18px 40px -24px rgba(23,24,27,.28);
+  --f-display:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --f-body:"Geist",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --f-hand:"Kalam","Comic Sans MS",cursive;
+  --maxw:1560px; --gut:clamp(16px,4vw,64px); --ease:cubic-bezier(.16,1,.3,1);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0A131A;--surface:#111D26;--sunk:#172631;--ink:#E6EDF2;--muted:#95A5B2;--line:#253744;
-  --accent:#7D95FF;--accent-ink:#081020;--accent-soft:#1C2A5A;--verified:#4FD1A1;--verified-soft:#10362B;
-  --flag:#F2B24C;--flag-soft:#3A2A10;color-scheme:dark}}
+  --paper:#0A131A; --sheet:#15222C; --rule:#253744; --ink:#E6EDF2; --ink-2:#95A5B2; --mute:#7C8B97;
+  --red:#FF6B60; --red-soft:#3A1C1E; --green:#4FD1A1; --green-soft:#10362B; --blue:#7D95FF; --blue-soft:#1C2A5A; --amber:#F2B24C; --amber-soft:#3A2A10;
+  --night:#1E2C38; --night-fg:#EDEBE5; --shadow:0 1px 0 rgba(0,0,0,.3),0 18px 40px -24px rgba(0,0,0,.7); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0A131A;--surface:#111D26;--sunk:#172631;--ink:#E6EDF2;--muted:#95A5B2;--line:#253744;
-  --accent:#7D95FF;--accent-ink:#081020;--accent-soft:#1C2A5A;--verified:#4FD1A1;--verified-soft:#10362B;
-  --flag:#F2B24C;--flag-soft:#3A2A10;color-scheme:dark}
+  --paper:#0A131A; --sheet:#15222C; --rule:#253744; --ink:#E6EDF2; --ink-2:#95A5B2; --mute:#7C8B97;
+  --red:#FF6B60; --red-soft:#3A1C1E; --green:#4FD1A1; --green-soft:#10362B; --blue:#7D95FF; --blue-soft:#1C2A5A; --amber:#F2B24C; --amber-soft:#3A2A10;
+  --night:#1E2C38; --night-fg:#EDEBE5; --shadow:0 1px 0 rgba(0,0,0,.3),0 18px 40px -24px rgba(0,0,0,.7); color-scheme:dark}
 
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
-a{color:var(--accent)}
-h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.02}
-h2{font-size:clamp(28px,3.4vw,48px);font-variation-settings:"wdth" 118;font-weight:800;letter-spacing:-.01em}
-h3{font-size:19px;font-weight:700;font-variation-settings:"wdth" 105;line-height:1.2}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gut)}
+.mono{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.hand{font-family:var(--f-hand);color:var(--red);line-height:1.25}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;letter-spacing:-.01em;text-wrap:balance;margin:0}
+h2{font-size:clamp(2.2rem,4.2vw,3.8rem);line-height:1.02}
 p{margin:0}
-.wrap{max-width:1760px;margin-inline:auto;padding-inline:clamp(16px,3.5vw,56px)}
-.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.mono{font-family:var(--mono)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
 .num{font-variant-numeric:tabular-nums}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
-/* prototype banner */
-.proto{background:var(--flag-soft);color:var(--ink);font-size:13px}
-.proto .wrap{padding-block:8px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.proto b{color:var(--flag);font-family:var(--mono);font-size:11px;letter-spacing:.1em}
+/* ruled paper ground, only behind the hero and the closing band */
+.ruled{background-image:linear-gradient(var(--rule) 1px,transparent 1px);background-size:100% 32px;background-position:0 -1px}
+
+/* buttons: MicroKit project-text-swap-button + projects-arrow-button, ported */
+.btn{--h:48px;display:inline-flex;align-items:center;gap:12px;height:var(--h);padding:0 8px 0 20px;border-radius:999px;border:0;cursor:pointer;font:600 .95rem/1 var(--f-body);text-decoration:none;position:relative;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-red{background:var(--brand-red);color:#fff}
+.btn-line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink);padding-right:20px}
+.btn:hover{transform:translateY(-1px)}
+.swap{display:inline-grid;overflow:hidden;height:1.2em}
+.swap>span{grid-area:1/1;transition:transform .45s var(--ease)}
+.swap>span+span{transform:translateY(110%)}
+.btn:hover .swap>span:first-child,.btn:focus-visible .swap>span:first-child{transform:translateY(-110%)}
+.btn:hover .swap>span+span,.btn:focus-visible .swap>span+span{transform:translateY(0)}
+.arr{width:32px;height:32px;border-radius:50%;display:inline-grid;place-items:center;overflow:hidden;background:color-mix(in srgb,currentColor 16%,transparent)}
+.arr i{grid-area:1/1;font-style:normal;transition:transform .4s var(--ease)}
+.arr i+i{transform:translateX(-32px)}
+.btn:hover .arr i:first-child{transform:translateX(32px)}
+.btn:hover .arr i+i{transform:translateX(0)}
+/* MicroKit whats-new-glow-button, ported: glow follows pointer */
+.glow::before{content:"";position:absolute;inset:-40%;background:radial-gradient(140px circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.28),transparent 60%);opacity:0;transition:opacity .3s}
+.glow:hover::before{opacity:1}
 
 /* nav */
-header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-header.nav .wrap{display:flex;align-items:center;gap:28px;padding-block:14px}
-.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 120;font-size:21px;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
-.logo i{display:block;width:26px;height:20px;background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 4px,var(--ink) 4px 5px,transparent 5px 8px)}
-nav.links{display:flex;gap:22px;flex-wrap:wrap}
-nav.links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
-nav.links a:hover{color:var(--ink)}
-.nav .spacer{flex:1}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:var(--r);padding:11px 18px;font:600 14px var(--body);cursor:pointer;text-decoration:none;transition:transform .12s ease,background .15s}
-.btn:active{transform:translateY(1px)}
-.btn-primary{background:var(--accent);color:var(--accent-ink)}
-.btn-primary:hover{filter:brightness(1.08)}
-.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
-.btn-ghost:hover{border-color:var(--ink)}
-@media (max-width:860px){nav.links{display:none}}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+.nav>.wrap{display:flex;align-items:center;gap:28px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
+.logo img{display:block;height:40px;width:auto}.lg-d{display:none!important}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lg-l{display:none!important}:root:not([data-theme="light"]) .lg-d{display:block!important}}
+:root[data-theme="dark"] .lg-l{display:none!important}:root[data-theme="dark"] .lg-d{display:block!important}
+@media (max-width:420px){.logo img{height:32px}}
+.nav ul{display:flex;gap:4px;list-style:none;margin:0 0 0 auto;padding:0}
+.nav ul a{display:block;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--ink-2);font-size:.92rem;transition:background .2s,color .2s}
+.nav ul a:hover{background:var(--sheet);color:var(--ink)}
+.nav .btn{--h:42px}
+@media (max-width:980px){.nav ul{display:none}.nav .btn{margin-left:auto}}
+@media (max-width:420px){.nav .btn .swap{display:none}.nav .btn{padding:0 5px}}
 
-/* hero builder */
-.hero{padding-block:clamp(28px,4vw,56px) clamp(36px,5vw,72px)}
-.hero-head{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:clamp(20px,4vw,64px);align-items:end;margin-bottom:clamp(24px,3vw,40px)}
-.hero h1{font-size:clamp(36px,4.8vw,84px);font-weight:900;font-variation-settings:"wdth" 125;letter-spacing:-.025em;line-height:.94}
-.hero h1 em{font-style:normal;color:var(--accent)}
-.hero-head p{color:var(--muted);font-size:clamp(16px,1.3vw,19px);max-width:52ch}
-@media (max-width:900px){.hero-head{grid-template-columns:1fr}}
+/* hero */
+.hero{padding-block:clamp(36px,5vw,72px) clamp(48px,6vw,88px);border-bottom:1px solid var(--rule)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,4vw,64px);align-items:start}
+@media (max-width:1060px){.hero .wrap{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(2.4rem,4.6vw,4.6rem);line-height:.94;margin-top:18px}
+.hero h1 em{font-style:italic;color:var(--red);position:relative;white-space:nowrap}
+.hero .sub{font-size:clamp(1.05rem,1.4vw,1.25rem);color:var(--ink-2);max-width:34em;margin-top:22px}
+.words span{display:inline-block;animation:rise 1s var(--ease) both;animation-delay:calc(var(--i)*70ms + 120ms)}
+@keyframes rise{from{transform:translateY(.35em);opacity:.001}to{transform:none;opacity:1}}
 
-.builder{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-@media (max-width:1080px){.builder{grid-template-columns:1fr}}
-.filters{padding:clamp(18px,2vw,28px);display:flex;flex-direction:column;gap:22px;border-right:1px solid var(--line)}
-@media (max-width:1080px){.filters{border-right:0;border-bottom:1px solid var(--line)}}
-.fgroup{display:flex;flex-direction:column;gap:10px}
-.fgroup-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.fgroup-h button{background:none;border:0;color:var(--accent);font:500 12px var(--body);cursor:pointer;padding:0}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px;font:500 13px var(--body);cursor:pointer;display:inline-flex;gap:6px;align-items:center;transition:background .12s,border-color .12s}
-.chip:hover{border-color:var(--muted)}
-.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.chip small{font-family:var(--mono);font-size:10.5px;opacity:.65}
-.seg{display:inline-flex;align-self:flex-start;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;flex-wrap:wrap}
-.seg button{border:0;background:var(--surface);color:var(--ink);padding:7px 14px;font:500 13px var(--body);cursor:pointer;border-right:1px solid var(--line)}
-.seg button:last-child{border-right:0}
-.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
-.hint{font-size:12.5px;color:var(--muted)}
+.drop{margin-top:30px;border:1.5px dashed color-mix(in srgb,var(--ink) 40%,transparent);border-radius:18px;background:var(--sheet);padding:22px;display:grid;gap:14px;transition:border-color .25s,background .25s,transform .3s var(--ease)}
+.drop.over{border-color:var(--red);background:var(--red-soft);transform:scale(1.01)}
+.drop .row{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.drop .hint{color:var(--ink-2);font-size:.92rem}
+.drop input[type=file]{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.felt{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.84rem;color:var(--mute)}
+.felt span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:8px;vertical-align:middle}
+.err{color:var(--red);font-size:.9rem}
 
-.results{display:flex;flex-direction:column;min-width:0}
-.count-panel{padding:clamp(18px,2vw,28px);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px 28px;align-items:end;border-bottom:1px solid var(--line);background:var(--sunk)}
-@media (max-width:620px){.count-panel{grid-template-columns:1fr}}
-.count{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 125;font-size:clamp(52px,7vw,112px);line-height:.9;letter-spacing:-.03em}
-.barcode{height:18px;margin-top:10px;background:repeating-linear-gradient(90deg,var(--ink) 0 1px,transparent 1px 3px,var(--ink) 3px 6px,transparent 6px 7px,var(--ink) 7px 8px,transparent 8px 11px,var(--ink) 11px 13px,transparent 13px 15px);opacity:.85;max-width:420px}
-.count-meta{display:flex;flex-direction:column;gap:6px;min-width:0}
-.est{display:grid;grid-template-columns:auto auto;gap:4px 18px;font-size:13.5px;align-items:baseline}
-.est dt{color:var(--muted)}
-.est dd{margin:0;text-align:right;font-family:var(--mono);font-weight:500}
-.est dd.big{font-size:20px;color:var(--ink)}
-.cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+/* report panel */
+.report{background:var(--sheet);border-radius:20px;box-shadow:var(--shadow);border:1px solid var(--rule);overflow:hidden;position:relative;min-width:0}
+.rep-head{display:flex;align-items:center;gap:16px;padding:18px 22px;border-bottom:1px solid var(--rule)}
+.rep-head .file{min-width:0}
+.rep-head .file b{display:block;font-family:var(--f-mono);font-size:.9rem;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag{display:inline-block;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--amber-soft);color:var(--amber);margin-left:8px;vertical-align:2px}
+.tag.yours{background:var(--blue-soft);color:var(--blue)}
+.stamp{margin-left:auto;flex:none;width:84px;height:84px;border-radius:50%;border:3px double var(--red);color:var(--red);display:grid;place-items:center;transform:rotate(-12deg);font-family:var(--f-display);position:relative}
+.stamp b{font-size:2.6rem;line-height:1;font-weight:400}
+.stamp small{position:absolute;bottom:12px;font-family:var(--f-mono);font-size:.5rem;letter-spacing:.12em}
+.stamp.pop{animation:stamp .6s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes stamp{from{transform:rotate(-30deg) scale(1.8);opacity:0}to{transform:rotate(-12deg) scale(1);opacity:1}}
+.rep-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)}
+@media (max-width:720px){.rep-body{grid-template-columns:1fr}}
+.rep-col{padding:20px 22px;min-width:0}
+.rep-col+.rep-col{border-left:1px solid var(--rule)}
+@media (max-width:720px){.rep-col+.rep-col{border-left:0;border-bottom:1px solid var(--rule);order:-1}}
+.split-bar{display:flex;height:14px;border-radius:999px;overflow:hidden;margin:10px 0 12px;background:var(--rule)}
+.split-bar i{display:block;height:100%;transform-origin:left;animation:grow 1.1s var(--ease) both}
+@keyframes grow{from{transform:scaleX(0)}}
+.keys{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.key b{display:block;font-family:var(--f-display);font-size:2rem;line-height:1;font-weight:400}
+.key span{font-size:.78rem;color:var(--ink-2)}
+.key .dot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px}
+.issues{list-style:none;margin:16px 0 0;padding:0;display:grid}
+.issues li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--rule);font-size:.9rem}
+.issues li b{font-family:var(--f-mono);font-weight:500;font-size:.85rem}
+.issues li.zero{color:var(--mute)}
+.issues li .why{display:block;font-size:.76rem;color:var(--mute)}
+/* marked-up rows */
+.marked{width:100%;border-collapse:collapse;font-size:.84rem;table-layout:fixed}
+.marked td{padding:9px 6px;border-bottom:1px solid var(--rule);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.marked td:first-child{width:50%;font-family:var(--f-mono);font-size:.78rem}
+.marked td:last-child{width:96px;text-align:right}
+.x{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px;color:var(--mute)}
+.circ{position:relative;display:inline-block;padding:2px 8px;margin:-2px -8px}
+.circ::after{content:"";position:absolute;inset:-1px 0;border:2px solid var(--red);border-radius:48% 52% 45% 55%/60% 45% 55% 40%;transform:rotate(-1.5deg);pointer-events:none}
+.chip{display:inline-block;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border-radius:5px}
+.c-ok{background:var(--green-soft);color:var(--green)}
+.c-risk{background:var(--amber-soft);color:var(--amber)}
+.c-bad{background:var(--red-soft);color:var(--red)}
+.margin-note{font-family:var(--f-hand);color:var(--red);font-size:1.25rem;line-height:1.2;margin-top:14px;transform:rotate(-1.2deg);display:flex;gap:10px;align-items:flex-start}
+.margin-note svg{flex:none;margin-top:4px}
+.rep-foot{padding:18px 22px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;background:color-mix(in srgb,var(--sheet) 60%,var(--paper))}
+.rep-foot p{font-size:.88rem;color:var(--ink-2);flex:1 1 260px}
+.gate{display:flex;flex-wrap:wrap;gap:10px;width:100%}
+.gate label{width:100%;font-size:.85rem;color:var(--ink-2)}
+.gate input{flex:1 1 220px;height:48px;border-radius:12px;border:1.5px solid var(--rule);background:var(--paper);color:var(--ink);padding:0 14px;font:inherit}
+.gate input:focus{outline:none;border-color:var(--blue)}
+.done{display:grid;gap:10px;width:100%}
+.done h3{font-size:1.7rem}
+.proto{font-size:.78rem;color:var(--mute)}
 
-.preview-h{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px clamp(18px,2vw,28px);flex-wrap:wrap}
-.tbl-wrap{overflow-x:auto;border-top:1px solid var(--line)}
-table{border-collapse:collapse;width:100%;font-size:13.5px}
-th{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap;background:var(--surface)}
-td{padding:11px 14px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
-tbody tr:hover td{background:var(--sunk)}
-td .seller{font-weight:600}
-td .sid{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
-.pill{display:inline-block;padding:2px 8px;border-radius:999px;font:500 11.5px var(--mono);background:var(--sunk);color:var(--ink)}
-.pill.ok{background:var(--verified-soft);color:var(--verified)}
-.pill.acc{background:var(--accent-soft);color:var(--accent)}
-.masked{font-family:var(--mono);font-size:12.5px}
-.stars{font-family:var(--mono);font-size:12.5px}
-.tbl-note{font-size:12px;color:var(--muted);padding:10px clamp(18px,2vw,28px) 16px}
+/* proof strip */
+.proof .wrap{display:grid;grid-template-columns:auto 1fr auto;gap:18px 40px;align-items:center;padding-block:26px}
+@media (max-width:900px){.proof .wrap{grid-template-columns:1fr}}
+.marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee .track{display:flex;gap:56px;width:max-content;animation:mq 38s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.marquee .track span{font-family:var(--f-display);font-size:1.5rem;color:var(--ink-2);white-space:nowrap}
+@keyframes mq{to{transform:translateX(-50%)}}
+.comp{display:flex;gap:8px;flex-wrap:wrap}
+.comp span{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;border:1px solid var(--rule);border-radius:6px;padding:5px 8px;color:var(--ink-2)}
 
-/* sections */
-section.band{padding-block:clamp(48px,6vw,96px);border-top:1px solid var(--line)}
-.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(16px,4vw,64px);align-items:end;margin-bottom:clamp(24px,3vw,44px)}
-.sec-head p{color:var(--muted);max-width:60ch}
-@media (max-width:900px){.sec-head{grid-template-columns:1fr}}
+section.block{padding-block:clamp(64px,8vw,120px)}
+.reveal{transition:transform .9s var(--ease),opacity .9s var(--ease)}
+.motion .reveal.pre{transform:translateY(24px)}
 
-/* market facts */
-.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-block:1px solid var(--ink)}
-.fact{padding:22px 22px 24px 0;display:flex;flex-direction:column;gap:10px}
-.fact + .fact{padding-left:22px;border-left:1px solid var(--line)}
-.fact .big{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 122;font-size:clamp(36px,4vw,60px);line-height:.95;letter-spacing:-.02em}
-.fact p{font-size:14.5px;color:var(--ink)}
-.fact cite{font-style:normal;font-size:12px;color:var(--muted);margin-top:auto}
-.fact cite a{color:var(--muted)}
-@media (max-width:1000px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.fact:nth-child(3){padding-left:0;border-left:0}.fact:nth-child(n+3){border-top:1px solid var(--line)}}
-@media (max-width:560px){.facts{grid-template-columns:1fr}.fact,.fact+.fact{padding-left:0;border-left:0}.fact+.fact{border-top:1px solid var(--line)}}
-.takeaway{margin-top:28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:clamp(16px,4vw,64px)}
-.takeaway p{font-size:clamp(17px,1.5vw,21px);max-width:62ch}
-@media (max-width:900px){.takeaway{grid-template-columns:1fr}}
+/* anatomy: asymmetric, one big annotated row */
+.anat>div,.proof .wrap>*{min-width:0}
+.anat{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(28px,5vw,80px);align-items:start}
+@media (max-width:1000px){.anat{grid-template-columns:1fr}}
+.anat .lede{color:var(--ink-2);font-size:1.1rem;margin-top:18px;max-width:30em}
+.sheet{background:var(--sheet);border:1px solid var(--rule);border-radius:16px;box-shadow:var(--shadow);overflow-x:auto}
+.sheet table{width:100%;min-width:640px;border-collapse:collapse;font-family:var(--f-mono);font-size:.8rem}
+.sheet th{text-align:left;font-weight:500;color:var(--mute);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:12px 14px;border-bottom:1px solid var(--rule)}
+.sheet td{padding:13px 14px;border-bottom:1px solid var(--rule);white-space:nowrap;position:relative}
+.sheet tr:last-child td{border-bottom:0}
+.sheet .note{display:block;font-family:var(--f-hand);font-size:1rem;color:var(--red);margin-top:2px;white-space:normal;line-height:1.15}
+.sheet .empty{color:var(--red);font-family:var(--f-hand);font-size:1rem}
+.anat-legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px 28px;margin-top:26px}
+.anat-legend div{border-top:2px solid var(--ink);padding-top:10px}
+.anat-legend b{display:block;font-weight:600;margin-bottom:4px}
+.anat-legend p{font-size:.92rem;color:var(--ink-2)}
 
-/* marketplaces grid */
-.mk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.mk{background:var(--surface);padding:18px 20px;display:flex;flex-direction:column;gap:6px;min-width:0}
-.mk-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.mk .region{font:500 11px var(--mono);letter-spacing:.08em;color:var(--muted)}
-.mk .n{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 115;font-size:30px;letter-spacing:-.01em}
-.mk .bar{height:4px;background:var(--sunk);border-radius:2px;overflow:hidden}
-.mk .bar span{display:block;height:100%;background:var(--accent)}
-.mk .sub{font-size:12.5px;color:var(--muted)}
+/* steps: real sequence, so numbered */
+.steps-band{background:var(--night);color:var(--night-fg)}
+.steps-band .mono{color:color-mix(in srgb,var(--night-fg) 60%,transparent)}
+.steps-band h2{color:var(--night-fg)}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:48px;position:relative}
+@media (max-width:900px){.steps{grid-template-columns:1fr}}
+.step{padding:28px clamp(18px,2.4vw,36px) 8px 0;border-top:1px solid color-mix(in srgb,var(--night-fg) 25%,transparent);position:relative}
+.step+.step{padding-left:clamp(18px,2.4vw,36px);border-left:1px solid color-mix(in srgb,var(--night-fg) 18%,transparent)}
+@media (max-width:900px){.step+.step{padding-left:0;border-left:0}}
+.step::before{content:"";position:absolute;top:-1px;left:0;height:2px;width:0;background:var(--red);transition:width 1s var(--ease)}
+.step:hover::before,.step.on::before{width:100%}
+.step .n{font-family:var(--f-display);font-size:4.5rem;line-height:1;color:var(--red)}
+.step h3{font-size:2rem;margin-top:10px;color:var(--night-fg)}
+.step p{color:color-mix(in srgb,var(--night-fg) 72%,transparent);margin-top:10px;max-width:28em}
+.step .time{display:inline-block;margin-top:16px;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid color-mix(in srgb,var(--night-fg) 30%,transparent);border-radius:999px;padding:5px 10px}
 
-/* buyers */
-.buyers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-@media (max-width:1000px){.buyers{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:620px){.buyers{grid-template-columns:1fr}}
-.buyer{border-top:3px solid var(--ink);padding-top:16px;display:flex;flex-direction:column;gap:10px}
-.buyer p{color:var(--muted);font-size:14.5px}
-.buyer .preset{font-family:var(--mono);font-size:12px;color:var(--ink);background:var(--sunk);padding:8px 10px;border-radius:var(--r)}
-.buyer button{align-self:flex-start;margin-top:auto}
+/* strategist */
+.strat{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(28px,5vw,80px);align-items:center}
+@media (max-width:1000px){.strat{grid-template-columns:1fr}}
+.covers{list-style:none;padding:0;margin:28px 0 0;display:grid}
+.covers li{display:grid;grid-template-columns:28px 1fr;gap:14px;padding:18px 0;border-top:1px solid var(--rule)}
+.covers li svg{margin-top:3px}
+.covers b{display:block;font-size:1.05rem}
+.covers p{color:var(--ink-2);font-size:.95rem;margin-top:3px}
+.memo{background:var(--sheet);border:1px solid var(--rule);border-radius:4px;box-shadow:var(--shadow);padding:clamp(22px,3vw,40px);transform:rotate(.8deg);position:relative;background-image:linear-gradient(var(--rule) 1px,transparent 1px);background-size:100% 34px;background-position:0 70px}
+.memo::before{content:"";position:absolute;left:clamp(46px,5vw,64px);top:0;bottom:0;width:1.5px;background:color-mix(in srgb,var(--red) 45%,transparent)}
+.memo .mh{display:flex;justify-content:space-between;gap:10px;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:22px}
+.memo .body{padding-left:clamp(36px,4vw,44px);font-family:var(--f-hand);font-size:1.28rem;line-height:34px;color:var(--ink)}
+.memo .body .r{color:var(--red)}
+.memo .body .b{color:var(--blue)}
+.memo .body s{text-decoration-color:var(--red);text-decoration-thickness:2px}
+.memo .sig{margin-top:12px;color:var(--blue)}
 
-/* demand strip */
-.demand{margin-top:28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:22px}
-.demand .big{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 122;font-size:46px;line-height:.95;letter-spacing:-.02em;display:block}
-.demand p{color:var(--muted);font-size:14px;margin-top:8px}
-.demand .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.demand .src{grid-column:1/-1;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin:0}
-@media (max-width:900px){.demand{grid-template-columns:1fr}}
+/* catalog */
+.cat-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:20px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-top:34px;border-bottom:1px solid var(--rule);position:relative}
+.tabs button{appearance:none;background:none;border:0;padding:12px 16px;font:500 .95rem var(--f-body);color:var(--ink-2);cursor:pointer;position:relative;min-height:44px}
+.tabs button[aria-selected=true]{color:var(--ink)}
+.tabs .ul{position:absolute;bottom:-1px;height:2px;background:var(--red);transition:transform .4s var(--ease),width .4s var(--ease)}
+.lists{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:0;margin-top:8px}
+.lists a{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 4px;border-bottom:1px solid var(--rule);text-decoration:none;position:relative;min-height:44px}
+.lists a::before{content:"";position:absolute;left:0;top:-1px;height:2px;width:0;background:var(--red);transition:width .35s var(--ease)}
+.lists a:hover::before{width:100%}
+.lists a span.k{font-family:var(--f-mono);font-size:.66rem;color:var(--mute);letter-spacing:.06em;text-transform:uppercase}
+.lists a .go{transition:transform .35s var(--ease)}
+.lists a:hover .go{transform:translateX(4px)}
+.cat-note{margin-top:22px;font-size:.92rem;color:var(--ink-2)}
 
-/* fields */
-.fields-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:clamp(20px,4vw,64px)}
-@media (max-width:1000px){.fields-layout{grid-template-columns:1fr}}
-.fields-tbl td,.fields-tbl th{white-space:normal}
-.fields-tbl td:first-child{font-weight:600;white-space:nowrap}
-.fill{display:flex;align-items:center;gap:10px;min-width:140px}
-.fill .track{flex:1;height:6px;background:var(--sunk);border-radius:3px;overflow:hidden}
-.fill .track span{display:block;height:100%;background:var(--verified)}
-.fill b{font:500 12.5px var(--mono);width:38px;text-align:right}
-.group-row td{background:var(--sunk);font:500 11px var(--mono)!important;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+/* objections */
+.obj{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,40px);margin-top:40px}
+@media (max-width:900px){.obj{grid-template-columns:1fr}}
+.obj article{border-top:2px solid var(--ink);padding-top:18px}
+.obj h3{font-size:1.75rem;line-height:1.1}
+.obj p{color:var(--ink-2);margin-top:12px}
 
-/* process */
-.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;counter-reset:s}
-@media (max-width:1000px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.steps{grid-template-columns:1fr}}
-.step{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:10px}
-.step .k{font:500 12px var(--mono);color:var(--accent)}
-.step p{color:var(--muted);font-size:14.5px}
+/* close */
+.close{border-top:1px solid var(--rule)}
+.close .wrap{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:end;padding-block:clamp(64px,8vw,120px)}
+@media (max-width:900px){.close .wrap{grid-template-columns:1fr}}
+.close h2{font-size:clamp(2.6rem,6vw,5.4rem)}
+.close .side{display:grid;gap:16px}
+.close .side p{color:var(--ink-2)}
 
-/* pricing */
-.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
-@media (max-width:1000px){.plans{grid-template-columns:1fr}}
-.plan{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px;display:flex;flex-direction:column;gap:14px}
-.plan.feature{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
-.plan .price{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 118;font-size:42px;letter-spacing:-.02em;line-height:1}
-.plan .price small{font:500 14px var(--body);color:var(--muted);letter-spacing:0}
-.plan ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:14.5px}
-.plan li{padding-left:20px;position:relative}
-.plan li::before{content:"";position:absolute;left:2px;top:.55em;width:8px;height:8px;border-radius:2px;background:var(--verified)}
-.plan .btn{margin-top:auto}
-.tiers{margin-top:22px;overflow-x:auto}
-.tiers table td,.tiers table th{text-align:right}
-.tiers table td:first-child,.tiers table th:first-child{text-align:left}
+footer{background:var(--night);color:color-mix(in srgb,var(--night-fg) 75%,transparent);font-size:.9rem}
+footer .wrap{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px;padding-block:48px}
+@media (max-width:800px){footer .wrap{grid-template-columns:1fr 1fr}}
+footer b{color:var(--night-fg);display:block;margin-bottom:10px;font-weight:600}
+footer .brandline{font-family:var(--f-display);font-size:1.6rem;color:var(--night-fg)}footer .brandline i{color:var(--brand-green);font-style:normal}
+footer ul{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+footer a{text-decoration:none}
+footer a:hover{color:var(--night-fg)}
+footer .legal{grid-column:1/-1;border-top:1px solid color-mix(in srgb,var(--night-fg) 15%,transparent);padding-top:18px;display:flex;flex-wrap:wrap;gap:10px 24px;font-size:.8rem}
+.sel{user-select:all}
 
-/* compliance + faq */
-.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,64px)}
-@media (max-width:900px){.two{grid-template-columns:1fr}}
-.comp{display:flex;flex-direction:column;gap:14px}
-.comp div{display:grid;grid-template-columns:120px minmax(0,1fr);gap:14px;padding-bottom:14px;border-bottom:1px solid var(--line)}
-.comp b{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:2px}
-.comp p{font-size:14.5px}
-details{border-bottom:1px solid var(--line);padding-block:14px}
-summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
-summary::after{content:"+";font-family:var(--mono);color:var(--muted)}
-details[open] summary::after{content:"\2212"}
-details p{margin-top:10px;color:var(--muted);font-size:14.5px;max-width:70ch}
+/* mobile sticky CTA, appears after hero */
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--rule);display:none;transform:translateY(110%);transition:transform .4s var(--ease)}
+.sticky-cta .btn{width:100%;justify-content:space-between}
+.sticky-cta.show{transform:none}
+@media (max-width:760px){.sticky-cta{display:block}}
 
-/* quote */
-.quote{background:var(--ink);color:var(--bg)}
-.quote .eyebrow{color:color-mix(in srgb,var(--bg) 65%,transparent)}
-.quote-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(24px,5vw,80px);padding-block:clamp(48px,6vw,96px)}
-@media (max-width:900px){.quote-grid{grid-template-columns:1fr}}
-.quote h2{color:var(--bg)}
-.quote p{color:color-mix(in srgb,var(--bg) 75%,transparent)}
-.summary-box{margin-top:22px;border:1px solid color-mix(in srgb,var(--bg) 25%,transparent);border-radius:10px;padding:16px;font:13px/1.7 var(--mono);color:var(--bg)}
-form.qf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-@media (max-width:620px){form.qf{grid-template-columns:1fr}}
-.qf label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:color-mix(in srgb,var(--bg) 80%,transparent)}
-.qf .full{grid-column:1/-1}
-.qf input,.qf select,.qf textarea{font:15px var(--body);padding:11px 12px;border-radius:var(--r);border:1px solid color-mix(in srgb,var(--bg) 25%,transparent);background:color-mix(in srgb,var(--bg) 6%,transparent);color:var(--bg)}
-.qf select option{color:#0C1A24;background:#fff}
-.qf input:focus,.qf select:focus,.qf textarea:focus{outline:2px solid var(--accent);outline-offset:0}
-.qf .btn-primary{justify-self:start}
-.qf-msg{grid-column:1/-1;font-size:14px;padding:12px 14px;border-radius:var(--r);background:color-mix(in srgb,var(--verified) 22%,transparent);color:var(--bg)}
-.qf-err{grid-column:1/-1;font-size:14px;color:var(--flag)}
+/* signature scan line: a cobalt scan sweeps the report like a ledger reader */
+.report{position:relative;overflow:hidden}
+.report::after{content:"";position:absolute;left:0;right:0;top:0;height:35%;background:linear-gradient(180deg,transparent 0,transparent 82%,color-mix(in srgb,var(--brand-red) 30%,transparent) 92%,transparent 100%);animation:scan 4.2s var(--ease) infinite;pointer-events:none;z-index:3}
+@keyframes scan{0%{transform:translateY(-105%);opacity:0}8%{opacity:.9}92%{opacity:.9}100%{transform:translateY(300%);opacity:0}}
+@media (prefers-reduced-motion:reduce){.report::after{display:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.motion .reveal.pre{transform:none;opacity:1}}
+/* nav menu buttons and mega panel (SPAN rule: buyer-intent groups, no third level, hubs carry the long tail) */
+.menu button{appearance:none;background:none;border:0;font:inherit;font-size:.92rem;color:var(--ink-2);padding:10px 12px;border-radius:8px;cursor:pointer;min-height:44px}
+.menu button:hover,.menu button[aria-expanded=true]{background:var(--sheet);color:var(--ink)}
+.menu button span{font-size:.7rem;margin-left:2px;display:inline-block;transition:transform .3s var(--ease)}
+.menu button[aria-expanded=true] span{transform:rotate(180deg)}
+.burger{display:none;appearance:none;background:none;border:1px solid var(--rule);border-radius:10px;width:44px;height:44px;cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:6px}
+.burger span{display:block;width:18px;height:2px;background:var(--ink);transition:transform .3s var(--ease)}
+.burger[aria-expanded=true] span:first-child{transform:translateY(4px) rotate(45deg)}
+.burger[aria-expanded=true] span:last-child{transform:translateY(-4px) rotate(-45deg)}
+@media (max-width:980px){.burger{display:flex}.navcta{margin-left:auto}}
+.mega{position:absolute;left:0;right:0;top:100%;background:var(--sheet);border-bottom:1px solid var(--rule);box-shadow:0 30px 60px -30px rgba(0,0,0,.35);max-height:calc(100vh - 80px);overflow:auto;display:none}
+.mega[data-open=find] .mpanel[data-panel=find],.mega[data-open=fix] .mpanel[data-panel=fix],.mega[data-open=all] .mpanel{display:grid}
+.mega:not([data-open=""]){display:block;animation:mdrop .35s var(--ease)}
+@keyframes mdrop{from{transform:translateY(-8px);opacity:0}}
+.mpanel{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gut);display:none;grid-template-columns:minmax(220px,1fr) minmax(0,4fr);gap:clamp(20px,3vw,48px);padding-block:28px 32px}
+.mpanel[data-panel=fix]{grid-template-columns:1fr}
+.mega[data-open=all] .mpanel[data-panel=fix]{border-top:1px solid var(--rule)}
+@media (max-width:980px){.mpanel{grid-template-columns:1fr}}
+.msearch{display:grid;gap:10px;align-content:start;position:relative}
+.msearch input,.fsearch input{height:50px;border-radius:12px;border:1.5px solid var(--rule);background:var(--paper);color:var(--ink);padding:0 16px;font:inherit;width:100%}
+.msearch input:focus,.fsearch input:focus{outline:none;border-color:var(--red)}
+.hint-s{font-size:.82rem;color:var(--mute)}
+.mcols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 32px}
+.fixcols{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+@media (max-width:1180px){.mcols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.mcols,.fixcols{grid-template-columns:1fr}}
+.mcol ul{list-style:none;margin:8px 0 10px;padding:0;display:grid;gap:2px}
+.fixcols .mcol ul{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:560px){.fixcols .mcol ul{grid-template-columns:1fr}}
+.mcol li a{display:block;padding:6px 0;text-decoration:none;color:var(--ink-2);font-size:.94rem}
+.mcol li a:hover{color:var(--red)}
+.mhead{display:block;text-decoration:none;font-weight:600;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+.mhead small{display:block;font-weight:400;font-size:.8rem;color:var(--mute)}
+.mall{font-size:.88rem;font-weight:600;color:var(--red);text-decoration:none}
+.mall span{display:inline-block;transition:transform .3s var(--ease)}
+.mall:hover span{transform:translateX(4px)}
+.mpromo{background:var(--paper);border:1px dashed var(--red);border-radius:14px;padding:20px;display:grid;gap:10px;align-content:start}
+.mpromo .hand{font-size:1.2rem;transform:rotate(-2deg);display:inline-block}
+.mpromo b{font-family:var(--f-display);font-weight:400;font-size:1.7rem;line-height:1.05}
+.mpromo p{font-size:.9rem;color:var(--ink-2)}
 
-footer{padding-block:32px;font-size:13px;color:var(--muted)}
-footer .wrap{display:flex;gap:20px;justify-content:space-between;flex-wrap:wrap}
+/* hand-drawn marker in the hero, points to the finder */
+.marker{display:inline-flex;align-items:flex-start;gap:6px;margin-top:22px;text-decoration:none;color:var(--red);font-family:var(--f-hand);font-size:1.3rem;line-height:1.15;transform:rotate(-2deg);transform-origin:left}
+.marker svg{flex:none;transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+.marker:hover svg{transform:translateY(5px)}
+.marker:hover span{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:4px}
+
+/* hero form: email row appears after a file is chosen */
+.later{display:grid;gap:8px}
+.motion .later{display:none}
+.motion .later.show{display:grid;animation:rise .5s var(--ease) both}
+.later label{font-size:.88rem;color:var(--ink-2)}
+.later input{flex:1 1 220px;height:48px;border-radius:12px;border:1.5px solid var(--rule);background:var(--paper);color:var(--ink);padding:0 14px;font:inherit}
+
+/* finder */
+.finder{padding-block:clamp(56px,7vw,104px)}
+.fhead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 56px;align-items:end}
+@media (max-width:900px){.fhead{grid-template-columns:1fr}}
+.fsearch{position:relative;display:grid;gap:10px}
+.results{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:30;background:var(--sheet);border:1px solid var(--rule);border-radius:14px;box-shadow:var(--shadow);padding:6px;display:grid}
+.msearch .results{top:auto;position:relative}
+.fsearch .results{top:88px}
+.results a{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:11px 12px;border-radius:9px;text-decoration:none;min-height:44px}
+.results a:hover,.results a:focus-visible{background:var(--paper)}
+.results small{color:var(--mute);font-size:.78rem}
+.nomatch{padding:12px;display:grid;gap:8px}
+.nomatch .hand{font-size:1.3rem}
+.nomatch p{font-size:.92rem;color:var(--ink-2)}
+.pops{display:flex;flex-wrap:wrap;gap:8px}
+.pop{display:inline-block;padding:8px 13px;border-radius:999px;border:1px solid var(--rule);text-decoration:none;font-size:.88rem;background:var(--sheet);position:relative;overflow:hidden;transition:transform .25s var(--ease),border-color .25s}
+.pop::before{content:"";position:absolute;left:0;top:0;height:2px;width:0;background:var(--red);transition:width .35s var(--ease)}
+.pop:hover{transform:translateY(-2px);border-color:var(--ink-2)}
+.pop:hover::before{width:100%}
+.fbody{display:grid;grid-template-columns:minmax(240px,1fr) minmax(0,3fr);gap:0;margin-top:40px;border-top:1px solid var(--rule)}
+@media (max-width:900px){.fbody{grid-template-columns:1fr}}
+.rail{display:grid;align-content:start;border-right:1px solid var(--rule)}
+@media (max-width:900px){.rail{display:flex;overflow-x:auto;border-right:0;border-bottom:1px solid var(--rule);scrollbar-width:none}}
+.rail button{appearance:none;background:none;border:0;text-align:left;padding:16px 18px 16px 0;border-bottom:1px solid var(--rule);cursor:pointer;font:inherit;color:var(--ink-2);position:relative;min-height:44px}
+@media (max-width:900px){.rail button{flex:none;border-bottom:0;padding:14px 16px 14px 0}}
+.rail button b{display:block;font-weight:600;font-size:1rem}
+.rail button small{font-size:.8rem;color:var(--mute)}
+.rail button[aria-selected=true]{color:var(--ink)}
+.rail button::after{content:"";position:absolute;right:-1px;top:12px;bottom:12px;width:3px;background:var(--red);transform:scaleY(0);transition:transform .35s var(--ease)}
+.rail button[aria-selected=true]::after{transform:scaleY(1)}
+@media (max-width:900px){.rail button::after{right:16px;left:0;top:auto;bottom:0;height:3px;width:auto;transform:scaleX(0)}.rail button[aria-selected=true]::after{transform:scaleX(1)}}
+.fpanels{padding-left:clamp(0px,3vw,48px);min-width:0}
+.fpanel{padding-block:20px}
+.tabbed .fpanel{display:none}
+.tabbed .fpanel.on{display:block;animation:rise .45s var(--ease) both}
+.fpanel h3{font-family:var(--f-body);font-weight:600;font-size:1rem;margin-bottom:6px}
+.flist{list-style:none;margin:0 0 16px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.flist a{display:flex;justify-content:space-between;align-items:center;padding:14px 4px;border-bottom:1px solid var(--rule);text-decoration:none;position:relative;min-height:44px}
+.flist a::before{content:"";position:absolute;left:0;top:-1px;height:2px;width:0;background:var(--red);transition:width .35s var(--ease)}
+.flist a:hover::before{width:100%}
+.flist .go{transition:transform .35s var(--ease)}
+.flist a:hover .go{transform:translateX(4px)}
+.cat-note a{color:var(--red)}
+@media (max-width:980px){.nav .navcta{margin-left:auto;order:2}.burger{order:3}}
+.motion .reveal.pre{transform:translateY(24px)}
+
+/* gate fixes: iOS zoom on focus, flex truncation */
+input,textarea,select{font-size:16px}
+.btn>*{min-width:0}
+
+/* gate fixes: tap targets, swap truncation */
+.logo{min-height:44px;display:inline-flex;align-items:center}
+.btn{min-height:44px}
+.pop{min-height:44px;display:inline-flex;align-items:center}
+.swap{min-width:0;overflow:hidden}
+.swap>span{min-width:0}
+
+.btn{min-width:44px}
+
+/* critique fixes 2026-10-13 */
+[hidden]{display:none!important}
+.later{display:none}
+.later.show{display:grid}
+.marked .circ{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:720px){.marked th:nth-child(2),.marked td:nth-child(2){display:none}}
+@media (max-width:640px){.sheet table{min-width:0}.sheet th:nth-child(2),.sheet td:nth-child(2),.sheet th:nth-child(3),.sheet td:nth-child(3){display:none}}
+.obj{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:760px){.obj{grid-template-columns:1fr}.obj article p{max-width:68ch}}
+.anat-legend{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:1100px){.anat-legend{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (min-width:900px){.flist>*:last-child:nth-child(odd){grid-column:span 2}}
+@media (max-width:900px){.step p{max-width:none}}
+@media (max-height:940px){.hero{padding-block:clamp(18px,2.4vw,36px)}}
+.step{display:flex;flex-direction:column}
+.step .time{margin-top:auto}
+.stamp{color:var(--brand-red);border-color:var(--brand-red)}
+.close{background-color:var(--sheet)}
+@media (max-width:760px){body{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}}
+@media (max-width:420px){.nav .btn .swap{display:inline-flex}.nav .btn .arr{display:none}}
+@media (max-width:900px){.rail{flex-wrap:wrap;overflow-x:visible}.rail button{flex:1 1 180px}}
+@media (prefers-reduced-motion:reduce){.marquee .track{flex-wrap:wrap;transform:none;animation:none}.marquee{-webkit-mask-image:none;mask-image:none}.marquee .track span[aria-hidden="true"]{display:none}}
+
+/* critique fixes round 2 */
+.stamp small{font-size:.55rem;color:var(--ink)}
+.mtrig{min-width:44px;width:44px;height:44px}
+
 </style>
 </head>
 <body>
-<div class="proto" role="note"><div class="wrap"><b>PROTOTYPE</b><span>Market figures in "The seller market" section are sourced. Record counts, fill rates, prices and the brand name are working placeholders. Sample rows are fictional.</span></div></div>
 
-<header class="nav">
+
+<nav class="nav" aria-label="Main">
   <div class="wrap">
-    <a class="logo" href="#top" aria-label="SellerLedger home"><i aria-hidden="true"></i>SellerLedger</a>
-    <nav class="links" aria-label="Main">
-      <a href="#market">The market</a>
-      <a href="#marketplaces">Marketplaces</a>
-      <a href="#buyers">Who uses it</a>
-      <a href="#fields">Data fields</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-    <span class="spacer"></span>
-    <a class="btn btn-primary" href="#quote">Get a quote</a>
+    <a class="logo" href="#top" aria-label="SellerLedger home"><img class="lg-l" src="data:image/png;base64,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" alt="SellerLedger, Amazon and ecommerce sellers, with a person to contact" width="200" height="40"><img class="lg-d" src="data:image/png;base64,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" alt="SellerLedger, Amazon and ecommerce sellers, with a person to contact" width="200" height="40"></a>
+    <ul class="menu">
+      <li><button type="button" class="mtrig" aria-expanded="false" aria-controls="mega" data-panel="find">Find a list <span aria-hidden="true">&#9662;</span></button></li>
+      <li><button type="button" class="mtrig" aria-expanded="false" aria-controls="mega" data-panel="fix">Fix a list <span aria-hidden="true">&#9662;</span></button></li>
+      <li><a href="#strategist">Strategy call</a></li>
+      <li><a href="#questions">Questions</a></li>
+    </ul>
+    <button type="button" class="burger mtrig" aria-expanded="false" aria-controls="mega" data-panel="find" aria-label="Open menu"><span></span><span></span></button>
+    <a class="btn btn-red glow navcta" href="#top" data-focus-drop aria-label="Drop your list"><span class="swap"><span>Drop your list</span><span>Drop your list</span></span><span class="arr"><i>&#8593;</i><i>&#8593;</i></span></a>
   </div>
-</header>
+  <div class="mega" id="mega" data-open=""><div class="mpanel" data-panel="find"><div class="msearch"><label class="mono" for="msq">Search lists</label><input id="msq" type="search" placeholder="{E(hint)}" autocomplete="off" data-finder-input><p class="hint-s">Or pick who you sell to.</p><a class="mall" href="#lists">See every list on one page <span aria-hidden="true">&#8594;</span></a></div><div class="mcols"><div class="mcol"><span class="mhead">Amazon marketplaces<small>Amazon sellers by country</small></span><ul><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=amz-us">Amazon.com sellers</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=amz-uk">Amazon.co.uk sellers</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=amz-de">Amazon.de sellers</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=amz-in">Amazon.in sellers</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=amz-ae">Amazon.ae sellers</a></li></ul></div><div class="mcol"><span class="mhead">Other marketplaces<small>Sellers on the other big channels</small></span><ul><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=shopify">Shopify stores</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=walmart">Walmart sellers</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=ebay">eBay sellers</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=etsy">Etsy sellers</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=flipkart">Flipkart sellers</a></li></ul><a class="mall" href="#lists">All 8 other marketplaces lists <span aria-hidden="true">&#8594;</span></a></div><div class="mcol"><span class="mhead">By fulfillment<small>How the seller ships its orders</small></span><ul><li><a href="https://sellerledger.deep-ae0.workers.dev/?ful=fba">FBA sellers</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?ful=fbm">FBM sellers</a></li></ul></div><div class="mcol"><span class="mhead">By monthly revenue<small>Sellers by estimated monthly sales</small></span><ul><li><a href="https://sellerledger.deep-ae0.workers.dev/?rev=under-10k">Sellers under $10K a month</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?rev=10k-100k">Sellers $10K to $100K a month</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?rev=100k-1m">Sellers $100K to $1M a month</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?rev=1m-plus">Sellers over $1M a month</a></li></ul></div><div class="mcol"><span class="mhead">By category<small>Sellers by their top category</small></span><ul><li><a href="https://sellerledger.deep-ae0.workers.dev/?cat=home-kitchen">Home and Kitchen sellers</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?cat=apparel">Apparel sellers</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?cat=beauty">Beauty sellers</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?cat=health">Health sellers</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?cat=electronics">Electronics sellers</a></li></ul><a class="mall" href="#lists">All 6 by category lists <span aria-hidden="true">&#8594;</span></a></div><div class="mcol"><span class="mhead">By contact route<small>What you can reach the seller on</small></span><ul><li><a href="https://sellerledger.deep-ae0.workers.dev/?need=email">Sellers with verified email</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?need=phone">Sellers with direct phone</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?need=li">Sellers with a LinkedIn decision maker</a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?need=addr">Sellers with a verified address</a></li></ul></div></div></div><div class="mpanel" data-panel="fix"><div class="mcols fixcols"><div class="mcol"><span class="mhead">Fix a list<small>Clean, verify and complete the list you have</small></span><ul><li><a href="#quote">Data foundation audit of your own file</a></li><li><a href="#quote">Email and phone appending</a></li><li><a href="#quote">Address completion</a></li><li><a href="#quote">Custom list build</a></li></ul></div><div class="mcol mpromo"><span class="hand">Start here</span><b>1,000 contacts verified free</b><p>Drop a CSV and see what will bounce before you send.</p><a class="btn btn-red" href="#top" data-focus-drop><span>Verify my list</span><span class="arr"><i>&#8594;</i><i>&#8594;</i></span></a></div></div></div></div>
+</nav>
 
 <main id="top">
-<section class="hero">
+<section class="hero ruled">
   <div class="wrap">
-    <div class="hero-head">
-      <h1>Amazon and ecommerce <em>sellers</em>, with a person to contact.</h1>
-      <div style="display:flex;flex-direction:column;gap:16px">
-        <span class="eyebrow">Seller lists for agencies, marketing, software, logistics and creative services</span>
-        <p>Pick the marketplaces, categories and revenue band you sell into. The count updates as you go. Order the list, or take 25 free sample records first.</p>
-      </div>
-    </div>
-
-    <div class="builder" id="builder">
-      <div class="filters">
-        <div class="fgroup">
-          <div class="fgroup-h"><span class="eyebrow">Marketplace</span><button type="button" data-clear="mk">Select all</button></div>
-          <div class="chips" id="f-mk"></div>
-        </div>
-        <div class="fgroup">
-          <div class="fgroup-h"><span class="eyebrow">Top category</span><button type="button" data-clear="cat">Any category</button></div>
-          <div class="chips" id="f-cat"></div>
-        </div>
-        <div class="fgroup">
-          <div class="fgroup-h"><span class="eyebrow">Est. monthly revenue</span><button type="button" data-clear="rev">Any band</button></div>
-          <div class="chips" id="f-rev"></div>
-          <span class="hint">Modelled from review velocity, price and rank history. Bands, not exact figures.</span>
-        </div>
-        <div class="fgroup">
-          <span class="eyebrow">Amazon fulfilment</span>
-          <div class="seg" id="f-ful" role="group" aria-label="Amazon fulfilment"></div>
-          <span class="hint">FBA sellers ship through Amazon. FBM sellers ship themselves and buy their own 3PL, freight and packaging.</span>
-        </div>
-        <div class="fgroup">
-          <span class="eyebrow">Must include</span>
-          <div class="chips" id="f-need"></div>
-        </div>
-      </div>
-
-      <div class="results">
-        <div class="count-panel" aria-live="polite">
-          <div>
-            <span class="eyebrow">Sellers matching your filters</span>
-            <div class="count num" id="count">0</div>
-            <div class="barcode" aria-hidden="true"></div>
-          </div>
-          <div class="count-meta">
-            <dl class="est">
-              <dt>Rate per record</dt><dd id="rate">$0.00</dd>
-              <dt>Volume tier</dt><dd id="tier">Starter</dd>
-              <dt>List price</dt><dd class="big" id="price">$0</dd>
-            </dl>
-            <div class="cta-row">
-              <a class="btn btn-primary" href="#quote" id="orderBtn">Order this list</a>
-              <a class="btn btn-ghost" href="#quote" id="sampleBtn">25 free samples</a>
-            </div>
-          </div>
-        </div>
-        <div class="preview-h">
-          <span class="eyebrow">Preview of matching records</span>
-          <span class="hint" id="filterSummary"></span>
-        </div>
-        <div class="tbl-wrap">
-          <table>
-            <thead><tr><th>Seller</th><th>Marketplace</th><th>Category</th><th>Revenue band</th><th>Ratings</th><th>Decision maker</th><th>Email</th><th>Address</th></tr></thead>
-            <tbody id="rows"></tbody>
-          </table>
-        </div>
-        <p class="tbl-note">Fictional records shown to illustrate the file layout. Contact fields are masked until purchase. The full file ships as CSV or XLSX with 40 columns.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="market">
-  <div class="wrap">
-    <div class="sec-head">
-      <div style="display:flex;flex-direction:column;gap:12px"><span class="eyebrow">The seller market, 2026</span><h2>Fewer Amazon sellers, and more money in each one.</h2></div>
-      <p>Amazon's active seller count has fallen for two years while sales concentrate at the top. A seller list is only useful if it separates the few thousand businesses that move volume from the long tail of dormant accounts.</p>
-    </div>
-    <div class="facts">
-      <div class="fact"><span class="big num">500K</span><p>Active Amazon sellers in March 2026, down 14% from 584,000 in January 2025.</p><cite>Marketplace Pulse, via <a href="https://www.modernretail.co/operations/marketplace-briefing-amazons-seller-count-falls-as-revenue-concentrates-among-top-sellers/" target="_blank" rel="noopener">Modern Retail</a>, Apr 2026</cite></div>
-      <div class="fact"><span class="big num">&lt;8,000</span><p>Sellers account for about half of Amazon US third-party sales. A few years ago it took roughly 15,000.</p><cite>Marketplace Pulse, via <a href="https://www.modernretail.co/operations/marketplace-briefing-amazons-seller-count-falls-as-revenue-concentrates-among-top-sellers/" target="_blank" rel="noopener">Modern Retail</a>, Apr 2026</cite></div>
-      <div class="fact"><span class="big num">165K</span><p>New Amazon sellers registered in 2025, the lowest year since tracking began in 2015.</p><cite>Marketplace Pulse, via <a href="https://www.modernretail.co/operations/marketplace-briefing-amazons-seller-count-falls-as-revenue-concentrates-among-top-sellers/" target="_blank" rel="noopener">Modern Retail</a>, Apr 2026</cite></div>
-      <div class="fact"><span class="big num">2.8M</span><p>Live Shopify stores as of May 2026. About half of those with a known country are in the US.</p><cite>Store Leads, via <a href="https://storeinspect.com/blog/how-many-shopify-stores-are-there" target="_blank" rel="noopener">StoreInspect</a>, May 2026</cite></div>
-    </div>
-    <div class="takeaway">
-      <span class="eyebrow">What that means for your list</span>
-      <p>Sellers are paying more in fees, ads and tariffs, so they are actively shopping for agencies, cheaper fulfilment, software and working capital. Every record here carries a revenue band and an activity date, so you spend outreach on sellers who are still trading.</p>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="marketplaces">
-  <div class="wrap">
-    <div class="sec-head">
-      <div style="display:flex;flex-direction:column;gap:12px"><span class="eyebrow">Coverage</span><h2>13 marketplaces, one file format.</h2></div>
-      <p>Counts are sellers with at least one verified contact route and sales activity in the last 90 days. Click a marketplace to load it into the list builder.</p>
-    </div>
-    <div class="mk-grid" id="mkGrid"></div>
-  </div>
-</section>
-
-<section class="band" id="buyers">
-  <div class="wrap">
-    <div class="sec-head">
-      <div style="display:flex;flex-direction:column;gap:12px"><span class="eyebrow">Who uses it</span><h2>Built for companies that sell to sellers.</h2></div>
-      <p>Each preset loads the filters that group usually starts with. The groupings follow the companies that actually enquired in our first 40 days. Adjust from there.</p>
-    </div>
-    <div class="buyers" id="buyerGrid"></div>
-    <div class="demand" aria-label="Who has been buying lists">
-      <div>
-        <span class="eyebrow">Demand so far</span>
-        <span class="big num">21</span>
-        <p>List enquiries in the first 40 days, at 2 to 3 new ones a day, from companies that sell to Amazon and marketplace sellers.</p>
-      </div>
-      <div>
-        <span class="eyebrow">Industries that enquired</span>
-        <div class="tags">
-          <span class="pill">IT Services &amp; Software</span><span class="pill">Advertising Services</span><span class="pill">Marketing Services</span><span class="pill">Account Management</span><span class="pill">Amazon Agency</span><span class="pill">Logistics</span><span class="pill">Commercial Photo Editing</span>
-        </div>
-      </div>
-      <div>
-        <span class="eyebrow">Titles that reached out</span>
-        <div class="tags">
-          <span class="pill acc">CEO &amp; Founder</span><span class="pill acc">VP of Sales and Marketing</span><span class="pill acc">Amazon Account Manager</span><span class="pill acc">Sr. Amazon Advertising Manager</span><span class="pill acc">Chief GTM Engineer</span><span class="pill acc">Logistics Manager</span>
-        </div>
-      </div>
-      <p class="src">Source: Seller Ledger enquiry log, first 40 days to October 2026. Enquiring companies run from under $1M to $30M in annual revenue, mostly $1M to $5M. Counts per industry are not published.</p>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="fields">
-  <div class="wrap fields-layout">
-    <div style="display:flex;flex-direction:column;gap:14px">
-      <span class="eyebrow">Data fields</span>
-      <h2>40 columns per seller. These are the ones people filter on.</h2>
-      <p style="color:var(--muted)">Fill rate is the share of records in the full database where the field is populated. Business name and address come from the seller disclosures that high-volume marketplace sellers must publish under the US INFORM Consumers Act and the EU Digital Services Act.</p>
-    </div>
-    <div class="tbl-wrap" style="border:1px solid var(--line);border-radius:10px;background:var(--surface)">
-      <table class="fields-tbl">
-        <thead><tr><th>Field</th><th>What it contains</th><th>Fill rate</th></tr></thead>
-        <tbody id="fieldRows"></tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="process">
-  <div class="wrap">
-    <div class="sec-head">
-      <div style="display:flex;flex-direction:column;gap:12px"><span class="eyebrow">How a record is built</span><h2>From storefront to verified contact.</h2></div>
-      <p>Every record goes through the same four steps, in this order, and is refreshed monthly.</p>
-    </div>
-    <div class="steps">
-      <div class="step"><span class="k">Step 1 · Discover</span><h3>Index the storefront</h3><p>Seller ID, storefront URL, listings, ratings and category come from public marketplace pages and store platform data.</p></div>
-      <div class="step"><span class="k">Step 2 · Resolve</span><h3>Match to a company</h3><p>The seller's disclosed legal name and address are matched to a registered business and its own website domain.</p></div>
-      <div class="step"><span class="k">Step 3 · Contact</span><h3>Find the decision maker</h3><p>Founder, owner or ecommerce lead, with a work email checked at the mail server and a LinkedIn profile.</p></div>
-      <div class="step"><span class="k">Step 4 · Refresh</span><h3>Recheck every 30 days</h3><p>Sellers with no new ratings or listings in 90 days are flagged inactive and dropped from default counts.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="pricing">
-  <div class="wrap">
-    <div class="sec-head">
-      <div style="display:flex;flex-direction:column;gap:12px"><span class="eyebrow">Pricing</span><h2>Pay per record, or subscribe to the whole ledger.</h2></div>
-      <p>Per-record pricing drops as the list grows. Records that bounce within 30 days are replaced at no charge.</p>
-    </div>
-    <div class="plans">
-      <div class="plan">
-        <span class="eyebrow">One-off list</span>
-        <div class="price num">$0.18<small> per record</small></div>
-        <p style="color:var(--muted)">For a single campaign into a defined segment.</p>
-        <ul><li>Any filters from the list builder</li><li>CSV or XLSX, 40 columns</li><li>Bounce replacement for 30 days</li><li>Minimum order $500</li></ul>
-        <a class="btn btn-ghost" href="#quote" data-plan="One-off list">Build a list</a>
-      </div>
-      <div class="plan feature">
-        <span class="eyebrow">Marketplace subscription</span>
-        <div class="price num">$1,490<small> per month</small></div>
-        <p style="color:var(--muted)">For agencies, marketing and software teams prospecting every week.</p>
-        <ul><li>Unlimited exports for 3 marketplaces</li><li>Monthly refresh and new-seller alerts</li><li>HubSpot and Salesforce sync</li><li>Up to 5 seats</li></ul>
-        <a class="btn btn-primary" href="#quote" data-plan="Marketplace subscription">Start a subscription</a>
-      </div>
-      <div class="plan">
-        <span class="eyebrow">Data licence and API</span>
-        <div class="price">Custom</div>
-        <p style="color:var(--muted)">For platforms, lenders and data teams that need the full ledger.</p>
-        <ul><li>All 13 marketplaces</li><li>REST API and weekly delta files</li><li>Historical revenue band changes</li><li>Redistribution terms available</li></ul>
-        <a class="btn btn-ghost" href="#quote" data-plan="Data licence and API">Talk to sales</a>
-      </div>
-    </div>
-    <div class="tiers" style="border:1px solid var(--line);border-radius:10px;background:var(--surface)">
-      <table>
-        <thead><tr><th>One-off list size</th><th>Rate per record</th><th>Example cost</th></tr></thead>
-        <tbody id="tierRows"></tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="faq">
-  <div class="wrap two">
-    <div style="display:flex;flex-direction:column;gap:18px">
-      <span class="eyebrow">Compliance</span>
-      <h2>Where the data comes from, and how you can use it.</h2>
-      <div class="comp">
-        <div><b>Sources</b><p>Public storefronts, mandatory seller disclosures, company registries and business websites. No data is taken from behind a marketplace login.</p></div>
-        <div><b>US</b><p>Contacts are business contacts. Outreach must follow CAN-SPAM: honest subject lines, a physical address and a working unsubscribe.</p></div>
-        <div><b>EU and UK</b><p>Records for EU and UK sellers are supplied under legitimate interest with a documented assessment. Personal contact fields can be excluded at checkout.</p></div>
-        <div><b>Opt-out</b><p>Any seller can remove their record through a public form. Removals propagate to all customers at the next refresh.</p></div>
-      </div>
-    </div>
     <div>
-      <span class="eyebrow">Questions buyers ask</span>
-      <details open><summary>How accurate are the revenue bands?</summary><p>They are modelled estimates built from review velocity, price and category rank history. Treat them as a way to rank sellers, not as reported revenue.</p></details>
-      <details><summary>Can I get Amazon 1P vendors as well as 3P sellers?</summary><p>Yes. Brands that sell to Amazon wholesale are tagged as 1P vendors and can be added as a filter on request.</p></details>
-      <details><summary>What happens if an email bounces?</summary><p>Send us the bounce report within 30 days of delivery and every hard-bounced record is replaced with a fresh one that matches the same filters.</p></details>
-      <details><summary>Do you cover India and the Gulf?</summary><p>Yes. Amazon.in, Flipkart, Amazon.ae and noon are covered, with company matching against Indian MCA and UAE trade licence records where available.</p></details>
-      <details><summary>How fast is delivery?</summary><p>Lists up to 50,000 records are delivered the same business day. Larger or custom-filtered lists take up to three days.</p></details>
+      <div class="mono">Free data foundation audit</div>
+      <h1 class="words" aria-label="Amazon and ecommerce sellers, with a person to contact."><span style="--i:0">Amazon</span> <span style="--i:1">and</span> <span style="--i:2">ecommerce</span> <span style="--i:3">sellers,</span> <span style="--i:4">with</span> <span style="--i:5">a</span> <span style="--i:6"><em>person</em></span> <span style="--i:7">to</span> <span style="--i:8">contact.</span></h1>
+      <p class="sub">Drop the file you already work with and see its contact coverage graded before you spend anything.</p>
+
+      <form class="drop" id="drop" toolname="requestFreeSellerFileAudit" tooldescription="Audit up to 50,000 rows of a seller contact file for free. The file is read in the browser and graded for contact coverage and email health. A coverage plan and 25 matched sample records go to the work address given." novalidate>
+        <div class="row">
+          <label class="btn btn-red glow" for="file" id="pick"><span class="swap"><span>Choose a CSV or Excel file</span><span>Choose a CSV or Excel file</span></span><span class="arr"><i>&#8593;</i><i>&#8593;</i></span></label>
+          <input type="file" id="file" name="list" accept=".csv,.tsv,.txt,.xlsx,.xls" toolparamdescription="The contact file as CSV, TSV or Excel, with a header row and columns for email, phone and address">
+          <span class="hint">or drop it anywhere on this box</span>
+        </div>
+        <div class="felt"><span>Coverage report in seconds, no signup</span><span>File stays in your browser</span><span>Work email unlocks the plan</span></div>
+        <div class="later" id="later">
+          <label for="hemail">Work email for your coverage plan and samples</label>
+          <div class="row"><input id="hemail" type="email" autocomplete="email" placeholder="you@company.com" toolparamdescription="Work email address where verification results are sent. Personal addresses like Gmail are not accepted."><button class="btn btn-ink" type="submit"><span>Get my coverage plan</span><span class="arr"><i>&#8594;</i><i>&#8594;</i></span></button></div>
+        </div>
+        <div class="err" id="err" role="alert" hidden></div>
+      </form>
+      <a class="marker" href="#lists"><span>Need a fresh list instead?<br>Browse ready-made lists</span><svg width="70" height="64" viewBox="0 0 70 64" aria-hidden="true"><path d="M8 6c18 2 36 10 44 26 4 8 4 16 2 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M46 48l8 10 6-12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+
+    <div class="report" id="report" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="proof" aria-label="Customers and compliance">
+  <div class="wrap">
+    <div class="mono">Marketplaces covered</div>
+    <div class="marquee"><div class="track">
+      <span>Amazon.com</span><span>Amazon.co.uk</span><span>Amazon.de</span><span>Amazon.in</span><span>Amazon.ae</span><span>Shopify</span><span>Walmart</span><span>eBay</span><span>Etsy</span><span>Flipkart</span><span>noon</span><span>Mercado Libre</span><span>TikTok Shop</span>
+      <span aria-hidden="true">Amazon.com</span><span aria-hidden="true">Amazon.co.uk</span><span aria-hidden="true">Amazon.de</span><span aria-hidden="true">Amazon.in</span><span aria-hidden="true">Amazon.ae</span><span aria-hidden="true">Shopify</span><span aria-hidden="true">Walmart</span><span aria-hidden="true">eBay</span><span aria-hidden="true">Etsy</span><span aria-hidden="true">Flipkart</span><span aria-hidden="true">noon</span><span aria-hidden="true">Mercado Libre</span><span aria-hidden="true">TikTok Shop</span>
+    </div></div>
+    <div class="comp"><span>GDPR</span><span>CCPA</span><span>CAN-SPAM</span></div>
+  </div>
+</section>
+
+<section class="block finder" id="lists" aria-labelledby="lists-h">
+  <div class="wrap">
+    <div class="fhead">
+      <div><div class="mono">Need a new list instead?</div><h2 id="lists-h" style="margin-top:14px">Find your list in two clicks.</h2></div>
+      <div class="fsearch" role="search">
+        <label for="fq" class="mono">Who do you sell to?</label>
+        <input id="fq" type="search" placeholder="Try Amazon.com, FBA sellers, Shopify stores" autocomplete="off" data-finder-input aria-describedby="fq-hint">
+        <div class="results" id="fres" role="listbox" aria-label="Matching lists" hidden></div>
+        <p id="fq-hint" class="hint-s">Most searched: </p><div class="pops"><a class="pop" href="https://sellerledger.deep-ae0.workers.dev/?mk=amz-us">Amazon.com sellers</a><a class="pop" href="https://sellerledger.deep-ae0.workers.dev/?ful=fba">FBA sellers</a><a class="pop" href="https://sellerledger.deep-ae0.workers.dev/?mk=shopify">Shopify stores</a><a class="pop" href="https://sellerledger.deep-ae0.workers.dev/?mk=amz-uk">Amazon.co.uk sellers</a><a class="pop" href="https://sellerledger.deep-ae0.workers.dev/?mk=walmart">Walmart sellers</a><a class="pop" href="https://sellerledger.deep-ae0.workers.dev/?need=email">Sellers with verified email</a></div>
+      </div>
+    </div>
+    <div class="fbody">
+      <div class="rail" role="tablist" aria-label="List categories"><button type="button" role="tab" id="t-amazon" aria-controls="p-amazon" aria-selected="true"><b>Amazon marketplaces</b><small>Amazon sellers by country &middot; 5</small></button><button type="button" role="tab" id="t-channels" aria-controls="p-channels" aria-selected="false"><b>Other marketplaces</b><small>Sellers on the other big channels &middot; 8</small></button><button type="button" role="tab" id="t-fulfilment" aria-controls="p-fulfilment" aria-selected="false"><b>By fulfillment</b><small>How the seller ships its orders &middot; 2</small></button><button type="button" role="tab" id="t-revenue" aria-controls="p-revenue" aria-selected="false"><b>By monthly revenue</b><small>Sellers by estimated monthly sales &middot; 4</small></button><button type="button" role="tab" id="t-category" aria-controls="p-category" aria-selected="false"><b>By category</b><small>Sellers by their top category &middot; 6</small></button><button type="button" role="tab" id="t-contact" aria-controls="p-contact" aria-selected="false"><b>By contact route</b><small>What you can reach the seller on &middot; 4</small></button></div>
+      <div class="fpanels"><section class="fpanel" id="p-amazon" role="tabpanel" aria-labelledby="t-amazon"><h3>Amazon marketplaces seller lists</h3><ul class="flist"><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=amz-us">Amazon.com sellers<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=amz-uk">Amazon.co.uk sellers<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=amz-de">Amazon.de sellers<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=amz-in">Amazon.in sellers<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=amz-ae">Amazon.ae sellers<span class="go" aria-hidden="true">&#8594;</span></a></li></ul></section><section class="fpanel" id="p-channels" role="tabpanel" aria-labelledby="t-channels"><h3>Other marketplaces seller lists</h3><ul class="flist"><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=shopify">Shopify stores<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=walmart">Walmart sellers<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=ebay">eBay sellers<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=etsy">Etsy sellers<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=flipkart">Flipkart sellers<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=noon">noon sellers<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=meli">Mercado Libre sellers<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?mk=tiktok">TikTok Shop sellers<span class="go" aria-hidden="true">&#8594;</span></a></li></ul></section><section class="fpanel" id="p-fulfilment" role="tabpanel" aria-labelledby="t-fulfilment"><h3>By fulfillment seller lists</h3><ul class="flist"><li><a href="https://sellerledger.deep-ae0.workers.dev/?ful=fba">FBA sellers<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?ful=fbm">FBM sellers<span class="go" aria-hidden="true">&#8594;</span></a></li></ul></section><section class="fpanel" id="p-revenue" role="tabpanel" aria-labelledby="t-revenue"><h3>By monthly revenue seller lists</h3><ul class="flist"><li><a href="https://sellerledger.deep-ae0.workers.dev/?rev=under-10k">Sellers under $10K a month<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?rev=10k-100k">Sellers $10K to $100K a month<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?rev=100k-1m">Sellers $100K to $1M a month<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?rev=1m-plus">Sellers over $1M a month<span class="go" aria-hidden="true">&#8594;</span></a></li></ul></section><section class="fpanel" id="p-category" role="tabpanel" aria-labelledby="t-category"><h3>By category seller lists</h3><ul class="flist"><li><a href="https://sellerledger.deep-ae0.workers.dev/?cat=home-kitchen">Home and Kitchen sellers<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?cat=apparel">Apparel sellers<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?cat=beauty">Beauty sellers<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?cat=health">Health sellers<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?cat=electronics">Electronics sellers<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?cat=pet">Pet sellers<span class="go" aria-hidden="true">&#8594;</span></a></li></ul></section><section class="fpanel" id="p-contact" role="tabpanel" aria-labelledby="t-contact"><h3>By contact route seller lists</h3><ul class="flist"><li><a href="https://sellerledger.deep-ae0.workers.dev/?need=email">Sellers with verified email<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?need=phone">Sellers with direct phone<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?need=li">Sellers with a LinkedIn decision maker<span class="go" aria-hidden="true">&#8594;</span></a></li><li><a href="https://sellerledger.deep-ae0.workers.dev/?need=addr">Sellers with a verified address<span class="go" aria-hidden="true">&#8594;</span></a></li></ul></section></div>
+    </div>
+    <p class="cat-note"> Not seeing your niche? <a href="#strategist">We build custom lists</a>.</p>
+  </div>
+</section>
+
+<section class="block" id="problem">
+  <div class="wrap anat">
+    <div class="reveal">
+      <div class="mono">What we look for</div>
+      <h2 style="margin-top:14px">Five rows that look fine in a spreadsheet.</h2>
+      <p class="lede">Example rows from a seller contact file. The trouble shows up after you send. Bounces, dead numbers and a sender score that takes months to recover. These are the patterns we mark first.</p>
+    </div>
+    <div class="reveal">
+      <div class="sheet">
+        <table>
+          <thead><tr><th>Email</th><th>Seller</th><th>Marketplace</th><th>Phone</th></tr></thead>
+          <tbody>
+            <tr><td><span class="circ">info@vedagoods.com</span><span class="note">role inbox, nobody owns it</span></td><td>Veda Goods</td><td>Amazon.com FBA</td><td class="empty">missing</td></tr>
+            <tr><td><span class="circ">daniel.a@vedagood.com</span><span class="note">typo, the domain is vedagoods.com</span></td><td>Veda Goods</td><td>Amazon.com FBA</td><td>+1 973 555 0148</td></tr>
+            <tr><td><span class="x">l.brown@northpeakgoods.com</span><span class="note">listed twice</span></td><td>Northpeak Goods</td><td>Amazon.com FBA</td><td>+1 614 555 0122</td></tr>
+            <tr><td><span class="circ">emma.g1979@yahoo.com</span><span class="note">personal address, filters hit it</span></td><td>Bluefin Trading</td><td>Amazon.com FBM</td><td class="empty">missing</td></tr>
+            <tr><td>g.diaz@saltmarshsuppl.com<span class="note" style="color:var(--green)">looks good, needs the mailbox check</span></td><td>Saltmarsh Supply Co.</td><td>Amazon.com FBM</td><td>+1 602 555 0193</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="anat-legend">
+        <div><b>Role inboxes</b><p>info@, frontdesk@, sales@. Shared, rarely read, often flagged.</p></div>
+        <div><b>Typos and dead domains</b><p>One wrong letter and the email bounces every time.</p></div>
+        <div><b>Duplicates</b><p>The same seller twice reads as spam to them and to their provider.</p></div>
+        <div><b>Missing contact routes</b><p>No email, phone or address means no way to reach the business at all.</p></div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="quote" id="quote">
-  <div class="wrap quote-grid">
-    <div>
-      <span class="eyebrow">Get a quote</span>
-      <h2 style="margin-top:12px">Send your filters. Get a count, a price and 25 sample records.</h2>
-      <p style="margin-top:14px">The list you built above is attached automatically. We reply within one business day.</p>
-      <div class="summary-box" id="quoteSummary"></div>
+<section class="block steps-band" id="how">
+  <div class="wrap">
+    <div class="mono">How it works</div>
+    <h2 style="margin-top:14px;max-width:14em">Three steps. You decide whether the third one happens.</h2>
+    <div class="steps" id="steps">
+      <div class="step reveal"><div class="n">1</div><h3>Drop your seller file</h3><p>Your browser reads the file and grades it: which rows carry a work email, a phone and an address, and which emails will bounce.</p><span class="time">Seconds</span></div>
+      <div class="step reveal"><div class="n">2</div><h3>Get the coverage plan</h3><p>Add a work email and we map your rows against the ledger, then send what can be appended: work emails, direct phones and completed addresses, with 25 matched sample records.</p><span class="time">Within two business days</span></div>
+      <div class="step reveal"><div class="n">3</div><h3>Talk to a strategist</h3><p>If you want it, a data strategist walks you through the plan and the segments worth running next. Only if you book it.</p><span class="time">20 minutes</span></div>
     </div>
-    <form class="qf" id="qf" novalidate>
-      <label>Full name<input id="q-name" name="name" autocomplete="name" required></label>
-      <label>Work email<input id="q-email" name="email" type="email" autocomplete="email" required></label>
-      <label>Company<input id="q-co" name="company" autocomplete="organization"></label>
-      <label>What you sell to sellers
-        <select id="q-type" name="type">
-          <option>Amazon or marketplace agency</option><option>Advertising or marketing services</option><option>IT services or seller software</option><option>Logistics, freight or 3PL</option><option>Product imaging or creative services</option><option>Lending or payments</option><option>Other</option>
-        </select></label>
-      <label>Plan<select id="q-plan" name="plan"><option>One-off list</option><option>Marketplace subscription</option><option>Data licence and API</option><option>Free samples only</option></select></label>
-      <label>Delivery<select id="q-fmt" name="format"><option>CSV</option><option>XLSX</option><option>HubSpot sync</option><option>Salesforce sync</option></select></label>
-      <label class="full">Anything else<textarea id="q-notes" name="notes" rows="3" placeholder="Countries to exclude, fields you do not need, timing"></textarea></label>
-      <button class="btn btn-primary" type="submit">Request quote</button>
-      <div class="qf-err" id="qfErr" hidden></div>
-      <div class="qf-msg" id="qfMsg" hidden></div>
-    </form>
+  </div>
+</section>
+
+<section class="block" id="strategist">
+  <div class="wrap strat">
+    <div class="reveal">
+      <div class="mono">The strategy call</div>
+      <h2 style="margin-top:14px">A cleaner file is half the job. The other half is knowing who to sell to next.</h2>
+      <ul class="covers">
+        <li><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="9" fill="none" stroke="var(--red)" stroke-width="2"/><path d="M7 11l3 3 5-6" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"/></svg><div><b>What your coverage plan means</b><p>Which rows to keep, which to drop, and which need appending before your next campaign.</p></div></li>
+        <li><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="9" fill="none" stroke="var(--red)" stroke-width="2"/><path d="M7 11l3 3 5-6" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"/></svg><div><b>The list that fits your offer</b><p>The marketplaces and seller bands most likely to buy what you sell, and how many of them exist.</p></div></li>
+        <li><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="9" fill="none" stroke="var(--red)" stroke-width="2"/><path d="M7 11l3 3 5-6" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"/></svg><div><b>Channels worth testing</b><p>Email, LinkedIn, calling or ad audiences. Which mix suits your list and budget.</p></div></li>
+      </ul>
+      <div style="margin-top:28px"><a class="btn btn-red glow" href="#top" data-focus-drop><span class="swap"><span>Drop your list</span><span>Drop your list</span></span><span class="arr"><i>&#8594;</i><i>&#8594;</i></span></a></div>
+    </div>
+    <div class="reveal">
+      <div class="memo" role="img" aria-label="Example coverage plan note for a seller file">
+        <div class="mh"><span>Coverage plan</span><span>Example</span></div>
+        <div class="body">
+          <div>List: 1,240 marketplace sellers. <span class="r">31% risky or invalid.</span></div>
+          <div><s>Role inboxes and personal addresses</s> <span class="r">drop 188</span></div>
+          <div>Your buyer is the founder or the marketplace manager, not the support inbox.</div>
+          <div class="b">Run instead: FBA sellers in Home and Kitchen, $100K to $1M.</div>
+          <div class="b">Try: email plus a LinkedIn touch to the decision maker.</div>
+          <div><span class="r">Skip</span> cold calls to the warehouse line.</div>
+          <div class="sig">Next: pull counts for Amazon.co.uk and Shopify.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="block" id="questions" style="padding-top:0">
+  <div class="wrap">
+    <div class="mono">Before you drop a file</div>
+    <h2 style="margin-top:14px">Questions people ask first.</h2>
+    <div class="obj"><article class="reveal"><h3>Where does my file go?</h3><p>Nowhere at first. Your browser reads the file and builds the coverage report on your screen. We see rows only when you ask for the coverage plan, and only to match them against the ledger.</p></article><article class="reveal"><h3>How accurate are the revenue bands?</h3><p>They are modeled estimates built from review velocity, price and category rank history. Treat them as a way to rank sellers, not as reported revenue.</p></article><article class="reveal"><h3>What happens if an email bounces?</h3><p>Send us the bounce report within 30 days of delivery and every hard bounced record is replaced with a fresh one that matches the same filters.</p></article><article class="reveal"><h3>Where does the data come from?</h3><p>Public storefronts, mandatory seller disclosures, company registries and business websites. No data is taken from behind a marketplace login.</p></article></div>
+  </div>
+</section>
+
+<section class="close ruled">
+  <div class="wrap">
+    <h2>Find out what your list is hiding before your next send.</h2>
+    <div class="side">
+      <p>Free file audit. Coverage report on your screen in seconds.</p>
+      <div><a class="btn btn-red glow" href="#top" data-focus-drop><span class="swap"><span>Drop your list</span><span>Drop your list</span></span><span class="arr"><i>&#8593;</i><i>&#8593;</i></span></a></div>
+    </div>
   </div>
 </section>
 </main>
 
-<footer><div class="wrap"><span>SellerLedger. Seller data for companies that sell to sellers.</span><span>Amazon, Shopify, Walmart and other names are trademarks of their owners. SellerLedger is not affiliated with any marketplace.</span></div></footer>
+<footer>
+  <div class="wrap">
+    <div><b class="brandline">SellerLedger</b><p style="margin-bottom:10px;color:#4FD1A1">Seller data for companies that sell to sellers.</p><p>Amazon and ecommerce seller contact lists by marketplace, category and revenue band, delivered as CSV or XLSX with 40 columns.</p></div>
+    <div><b>Get a list</b><ul><li><a href="#lists">Find a list</a></li><li><a href="#how">How it works</a></li><li><a href="#strategist">Strategy call</a></li></ul></div>
+    <div><b>Lists</b><ul><li><a href="#lists">Amazon marketplaces</a></li><li><a href="#lists">Other marketplaces</a></li><li><a href="#lists">By fulfillment</a></li><li><a href="#lists">By monthly revenue</a></li><li><a href="#lists">By category</a></li><li><a href="#lists">By contact route</a></li></ul></div>
+    <div><b>Company</b><ul><li><a href="#">About</a></li><li><a href="#">Privacy policy</a></li></ul></div>
+    <div class="legal"><span>GDPR, CCPA and CAN-SPAM aligned</span><span>&copy; 2026 SellerLedger</span></div>
+  </div>
+</footer>
 
+<div class="sticky-cta" id="sticky"><a class="btn btn-red" href="#top" data-focus-drop><span>Drop your list</span><span class="arr"><i>&#8593;</i><i>&#8593;</i></span></a></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
 (function(){
-const MK=[
- {id:"amz-us",name:"Amazon.com",region:"US",n:182000},
- {id:"amz-uk",name:"Amazon.co.uk",region:"UK",n:64000},
- {id:"amz-de",name:"Amazon.de",region:"DE",n:58000},
- {id:"amz-in",name:"Amazon.in",region:"IN",n:71000},
- {id:"amz-ae",name:"Amazon.ae",region:"AE",n:9400},
- {id:"shopify",name:"Shopify",region:"GLOBAL",n:410000},
- {id:"walmart",name:"Walmart",region:"US",n:41000},
- {id:"ebay",name:"eBay",region:"GLOBAL",n:96000},
- {id:"etsy",name:"Etsy",region:"GLOBAL",n:88000},
- {id:"flipkart",name:"Flipkart",region:"IN",n:52000},
- {id:"noon",name:"noon",region:"AE / SA",n:7800},
- {id:"meli",name:"Mercado Libre",region:"LATAM",n:38000},
- {id:"tiktok",name:"TikTok Shop",region:"US / UK",n:27000}
-];
-const CAT=[["Home & Kitchen",.18],["Apparel",.14],["Beauty",.12],["Health",.10],["Electronics",.09],["Sports & Outdoors",.07],["Pet",.05],["Toys",.05],["Automotive",.05],["Grocery",.04],["Office",.04],["Baby",.03]];
-const REV=[["Under $10K",.52],["$10K to $100K",.31],["$100K to $1M",.14],["$1M+",.03]];
-const FUL=[["any","Any",1],["fba","FBA",.64],["fbm","FBM",.36]];
-const NEED=[["email","Verified email",.78],["li","Decision maker on LinkedIn",.58],["phone","Direct phone",.46],["addr","Verified address",.83]];
-const TIERS=[[0,5000,.18,"Starter"],[5000,25000,.12,"Growth"],[25000,100000,.08,"Volume"],[100000,Infinity,.05,"Bulk"]];
+  var html = document.documentElement;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce && 'IntersectionObserver' in window) html.classList.add('motion');
 
-const S={mk:new Set(["amz-us"]),cat:new Set(),rev:new Set(["$10K to $100K","$100K to $1M"]),ful:"any",need:new Set(["email"])};
-const $=id=>document.getElementById(id);
-const fmt=n=>n.toLocaleString("en-US");
-const money=n=>"$"+Math.round(n).toLocaleString("en-US");
+  /* ---------- verification engine (browser side) ---------- */
+  var FREE = 'gmail.com yahoo.com hotmail.com outlook.com aol.com icloud.com live.com msn.com ymail.com comcast.net att.net verizon.net rediffmail.com proton.me protonmail.com gmx.com mail.com yahoo.co.in'.split(' ');
+  var DISPOSABLE = 'mailinator.com 10minutemail.com guerrillamail.com tempmail.com temp-mail.org yopmail.com trashmail.com sharklasers.com getnada.com dispostable.com'.split(' ');
+  var TYPO = {'vedagood.com':'vedagoods.com','gmial.com':'gmail.com','gmai.com':'gmail.com','gamil.com':'gmail.com','gmail.co':'gmail.com','gmail.con':'gmail.com','hotmial.com':'hotmail.com','hotmail.co':'hotmail.com','yahooo.com':'yahoo.com','yaho.com':'yahoo.com','outlok.com':'outlook.com','outloo.com':'outlook.com','aol.co':'aol.com'};
+  var ROLE = /^(info|sales|admin|support|hr|contact|office|billing|marketing|team|hello|help|noreply|no-reply|webmaster|frontdesk|front.desk|reception|careers|jobs|enquiries|inquiries|accounts|service)([.\-_+]|@|$)/i;
+  var SYNTAX = /^[^\s@"(),:;<>\[\]\\]+@[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}$/i;
 
-function chip(label,pressed,onClick,extra){const b=document.createElement("button");b.type="button";b.className="chip";b.setAttribute("aria-pressed",pressed);b.innerHTML=label+(extra?" <small>"+extra+"</small>":"");b.onclick=onClick;return b}
-function toggle(set,v){set.has(v)?set.delete(v):set.add(v);render()}
-
-function renderFilters(){
-  const m=$("f-mk");m.innerHTML="";MK.forEach(x=>m.appendChild(chip(x.name,S.mk.has(x.id),()=>{toggle(S.mk,x.id)},x.region)));
-  const c=$("f-cat");c.innerHTML="";CAT.forEach(([n])=>c.appendChild(chip(n,S.cat.has(n),()=>toggle(S.cat,n))));
-  const r=$("f-rev");r.innerHTML="";REV.forEach(([n])=>r.appendChild(chip(n,S.rev.has(n),()=>toggle(S.rev,n))));
-  const f=$("f-ful");f.innerHTML="";FUL.forEach(([id,l])=>{const b=document.createElement("button");b.type="button";b.textContent=l;b.setAttribute("aria-pressed",S.ful===id);b.onclick=()=>{S.ful=id;render()};f.appendChild(b)});
-  const nd=$("f-need");nd.innerHTML="";NEED.forEach(([id,l])=>nd.appendChild(chip(l,S.need.has(id),()=>toggle(S.need,id))));
-}
-function compute(){
-  const catShare=S.cat.size?CAT.filter(c=>S.cat.has(c[0])).reduce((a,c)=>a+c[1],0):1;
-  const revShare=S.rev.size?REV.filter(r=>S.rev.has(r[0])).reduce((a,r)=>a+r[1],0):1;
-  const needShare=NEED.filter(n=>S.need.has(n[0])).reduce((a,n)=>a*n[2],1);
-  const fulShare=FUL.find(f=>f[0]===S.ful)[2];
-  let total=0;
-  MK.forEach(m=>{if(!S.mk.has(m.id))return;const isAmz=m.id.startsWith("amz");total+=m.n*catShare*revShare*needShare*(isAmz?fulShare:1)});
-  return Math.round(total/10)*10;
-}
-function tierFor(n){return TIERS.find(t=>n>=t[0]&&n<t[1])}
-
-let shown=0,anim;
-function animateTo(n){cancelAnimationFrame(anim);const start=shown,t0=performance.now(),d=450;
-  const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if(reduce){shown=n;$("count").textContent=fmt(n);return}
-  const step=t=>{const p=Math.min(1,(t-t0)/d),e=1-Math.pow(1-p,3);shown=Math.round(start+(n-start)*e);$("count").textContent=fmt(shown);if(p<1)anim=requestAnimationFrame(step)};anim=requestAnimationFrame(step)}
-
-/* fictional sample rows */
-function rng(seed){let s=seed>>>0||1;return()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return((s>>>0)%100000)/100000}}
-const A=["Northpeak","Copperleaf","Bluefin","Harbor Lane","Tallgrass","Brightwell","Oakmere","Saltmarsh","Kestrel","Juniper Row","Lumen","Riverstone","Cobalt Bay","Maple & Finch","Sundara","Veda","Orchid Loom","Desert Rose","Fernhill","Ironbark"];
-const B=["Home","Goods","Supply Co.","Living","Labs","Outfitters","Naturals","Trading","Essentials","Brands"];
-const F=["Aarav","Priya","James","Sofia","Daniel","Mei","Omar","Hannah","Lukas","Ana","Rahul","Grace","Yusuf","Emma","Karan","Leah"];
-const L=["M.","S.","K.","R.","T.","P.","B.","D.","A.","H."];
-const ROLE=["Founder","Owner","CEO","Head of Ecommerce","Co-founder","Marketplace Manager"];
-const CITY={"US":["Austin, TX","Newark, NJ","Phoenix, AZ","Miami, FL","Columbus, OH"],"UK":["Leeds","Manchester","Bristol"],"DE":["Hamburg","Leipzig","Köln"],"IN":["Bengaluru","Surat","Jaipur","Pune"],"AE":["Dubai","Sharjah"],"AE / SA":["Dubai","Riyadh"],"GLOBAL":["Toronto","Sydney","Shenzhen","Austin, TX"],"LATAM":["São Paulo","CDMX"],"US / UK":["Los Angeles, CA","London"]};
-function sid(r){const ch="ABCDEFGHJKLMNPQRSTUVWXYZ0123456789";let s="A";for(let i=0;i<13;i++)s+=ch[Math.floor(r()*ch.length)];return s}
-function rows(){
-  const key=[...S.mk,...S.cat,...S.rev,S.ful,...S.need].join("|");let h=7;for(const c of key)h=(h*31+c.charCodeAt(0))|0;const r=rng(h);
-  const mks=MK.filter(m=>S.mk.has(m.id));const cats=S.cat.size?[...S.cat]:CAT.map(c=>c[0]);const revs=S.rev.size?[...S.rev]:REV.map(x=>x[0]);
-  const tb=$("rows");tb.innerHTML="";
-  if(!mks.length){tb.innerHTML='<tr><td colspan="8" style="color:var(--muted);padding:22px 14px">Select at least one marketplace to preview records.</td></tr>';return}
-  for(let i=0;i<8;i++){
-    const m=mks[Math.floor(r()*mks.length)],cat=cats[Math.floor(r()*cats.length)],rev=revs[Math.floor(r()*revs.length)];
-    const name=A[Math.floor(r()*A.length)]+" "+B[Math.floor(r()*B.length)];
-    const dom=name.toLowerCase().replace(/[^a-z]/g,"").slice(0,14)+(m.region==="IN"?".in":m.region==="UK"?".co.uk":m.region==="DE"?".de":".com");
-    const f=F[Math.floor(r()*F.length)],l=L[Math.floor(r()*L.length)],role=ROLE[Math.floor(r()*ROLE.length)];
-    const isAmz=m.id.startsWith("amz");const ful=isAmz?(S.ful==="any"?(r()<.64?"FBA":"FBM"):S.ful.toUpperCase()):"";
-    const rating=(4.2+r()*0.75).toFixed(1),cnt=Math.floor(80+r()*(rev==="$1M+"?60000:rev==="$100K to $1M"?12000:2500));
-    const city=(CITY[m.region]||CITY.GLOBAL)[Math.floor(r()*(CITY[m.region]||CITY.GLOBAL).length)];
-    const id=m.id==="shopify"?dom:(isAmz?sid(r):m.name.toLowerCase().replace(/\s/g,"")+"/"+name.split(" ")[0].toLowerCase());
-    tb.insertAdjacentHTML("beforeend",`<tr>
-      <td><div class="seller">${name}</div><div class="sid">${id}</div></td>
-      <td>${m.name} ${ful?`<span class="pill acc">${ful}</span>`:""}</td>
-      <td>${cat}</td>
-      <td class="num">${rev}</td>
-      <td class="stars num">${rating} · ${fmt(cnt)}</td>
-      <td>${f} ${l} <span class="sid">${role}</span></td>
-      <td><span class="masked">${f[0].toLowerCase()}•••@${dom}</span> <span class="pill ok">verified</span></td>
-      <td>${city}</td></tr>`);
+  function check(email){
+    var e = String(email||'').trim().toLowerCase();
+    if (!e) return {s:'bad', why:'empty'};
+    if (!SYNTAX.test(e) || e.indexOf('..')>-1) return {s:'bad', why:'syntax'};
+    var dom = e.split('@')[1];
+    if (DISPOSABLE.indexOf(dom)>-1) return {s:'bad', why:'disposable'};
+    if (TYPO[dom]) return {s:'risk', why:'typo', fix:TYPO[dom]};
+    if (ROLE.test(e)) return {s:'risk', why:'role'};
+    if (FREE.indexOf(dom)>-1) return {s:'risk', why:'free'};
+    return {s:'ok', why:'ok'};
   }
-}
-function summaryText(){
-  const mk=MK.filter(m=>S.mk.has(m.id)).map(m=>m.name);
-  return {mk:mk.length?mk.join(", "):"None",cat:S.cat.size?[...S.cat].join(", "):"Any",rev:S.rev.size?[...S.rev].join(", "):"Any",ful:FUL.find(f=>f[0]===S.ful)[1],need:S.need.size?NEED.filter(n=>S.need.has(n[0])).map(n=>n[1]).join(", "):"No requirement"};
-}
-function render(){
-  renderFilters();
-  const n=compute();animateTo(n);
-  const t=tierFor(Math.max(n,1));$("rate").textContent="$"+t[2].toFixed(2);$("tier").textContent=t[3];
-  $("price").textContent=n?money(Math.max(500,n*t[2])):"$0";
-  const s=summaryText();
-  $("filterSummary").textContent=s.mk+" · "+s.rev;
-  $("quoteSummary").innerHTML=`<div>Marketplaces: ${s.mk}</div><div>Categories: ${s.cat}</div><div>Revenue: ${s.rev}</div><div>Amazon fulfilment: ${s.ful}</div><div>Must include: ${s.need}</div><div style="margin-top:8px">Estimated records: ${fmt(n)} · List price ${n?money(Math.max(500,n*t[2])):"$0"}</div>`;
-  rows();
-  try{localStorage.setItem("sl-filters",JSON.stringify({mk:[...S.mk],cat:[...S.cat],rev:[...S.rev],ful:S.ful,need:[...S.need]}))}catch(e){}
-}
-document.querySelectorAll("[data-clear]").forEach(b=>b.onclick=()=>{const k=b.dataset.clear;if(k==="mk"){MK.forEach(m=>S.mk.add(m.id))}else S[k].clear();render()});
 
-/* marketplace grid */
-const max=Math.max(...MK.map(m=>m.n));
-MK.forEach(m=>{const d=document.createElement("button");d.type="button";d.className="mk";d.style.cssText="border:0;text-align:left;cursor:pointer;font:inherit;color:inherit";
-  d.innerHTML=`<div class="mk-top"><h3>${m.name}</h3><span class="region">${m.region}</span></div><div class="n num">${fmt(m.n)}</div><div class="bar"><span style="width:${Math.max(3,m.n/max*100)}%"></span></div><div class="sub">active sellers with contacts</div>`;
-  d.onclick=()=>{S.mk=new Set([m.id]);render();document.getElementById("builder").scrollIntoView({behavior:"smooth",block:"start"})};$("mkGrid").appendChild(d)});
+  function findCols(headers, rows){
+    var h = headers.map(function(x){return String(x||'').toLowerCase();});
+    function f(rx){ for (var i=0;i<h.length;i++) if (rx.test(h[i])) return i; return -1; }
+    var email = f(/e-?mail/);
+    if (email<0){ var best=-1,bc=0; for (var c=0;c<headers.length;c++){ var n=0; rows.slice(0,200).forEach(function(r){ if(/@/.test(r[c]||'')) n++; }); if(n>bc){bc=n;best=c;} } email=best; }
+    return { email:email, first:f(/first|fname|given/), last:f(/last|lname|surname/), name:f(/^(full ?)?name$|contact name/), title:f(/title|designation|job|role|position/), company:f(/company|seller|store|practice|organi[sz]ation|account|employer|firm|business/), phone:f(/phone|mobile|tel/), addr:f(/address|street|addr|city|location/) };
+  }
 
-/* buyer presets */
-const P=[
- {t:"Amazon and marketplace agencies",d:"Find brands big enough to pay a retainer and small enough to still run their own ads. Ads, listings and account management all sell to this group.",f:{mk:["amz-us","amz-uk","amz-de"],cat:[],rev:["$10K to $100K","$100K to $1M"],ful:"any",need:["email","li"]}},
- {t:"Advertising and marketing services",d:"Performance, SEO and content teams selling to brands that already spend on ads and want more of the marketplace.",f:{mk:["amz-us","amz-uk","shopify"],cat:[],rev:["$10K to $100K","$100K to $1M"],ful:"any",need:["email","li"]}},
- {t:"IT services and seller software",d:"Repricers, analytics, review and inventory tools, and the dev shops that build for multi-channel sellers.",f:{mk:["amz-us","amz-uk","shopify","walmart","ebay"],cat:[],rev:["$10K to $100K","$100K to $1M"],ful:"any",need:["email"]}},
- {t:"Logistics, freight and 3PL",d:"Sellers who ship themselves today are the ones shopping for fulfilment when fees rise.",f:{mk:["amz-us","walmart","shopify"],cat:[],rev:["$100K to $1M","$1M+"],ful:"fbm",need:["phone","addr"]}},
- {t:"Creative and product imaging",d:"Product photography, image editing and listing content studios selling to sellers with a catalogue to maintain.",f:{mk:["amz-us","shopify","etsy"],cat:["Apparel","Beauty","Home & Kitchen"],rev:["$10K to $100K","$100K to $1M"],ful:"any",need:["email"]}},
- {t:"Lenders and payments",d:"Revenue-based finance and payout providers targeting sellers with steady sales history.",f:{mk:["amz-us","amz-uk","shopify","walmart"],cat:[],rev:["$100K to $1M","$1M+"],ful:"any",need:["email","phone"]}}
-];
-P.forEach(p=>{const mkN=p.f.mk.map(id=>MK.find(m=>m.id===id).name).join(", ");
-  const el=document.createElement("div");el.className="buyer";
-  el.innerHTML=`<h3>${p.t}</h3><p>${p.d}</p><div class="preset">${mkN}<br>${p.f.rev.join(", ")}${p.f.ful!=="any"?" · "+p.f.ful.toUpperCase():""}</div>`;
-  const b=document.createElement("button");b.type="button";b.className="btn btn-ghost";b.textContent="Load this list";
-  b.onclick=()=>{S.mk=new Set(p.f.mk);S.cat=new Set(p.f.cat);S.rev=new Set(p.f.rev);S.ful=p.f.ful;S.need=new Set(p.f.need);render();document.getElementById("builder").scrollIntoView({behavior:"smooth",block:"start"})};
-  el.appendChild(b);$("buyerGrid").appendChild(el)});
+  function audit(file, headers, rows){
+    var cols = findCols(headers, rows);
+    if (cols.email<0) return {error:'We could not find an email column. Add a header named "Email" and try again.'};
+    var seen = {}, out = [], c = {ok:0,risk:0,bad:0,dup:0,role:0,free:0,typo:0,disposable:0,syntax:0,empty:0,noTitle:0,noCompany:0,noPhone:0,noAddr:0};
+    rows.forEach(function(r){
+      var em = String(r[cols.email]||'').trim().toLowerCase();
+      var res = check(em);
+      if (em && seen[em]) { res = {s:'bad', why:'dup'}; }
+      seen[em] = 1;
+      c[res.s]++; if (res.why!=='ok') c[res.why]=(c[res.why]||0)+1;
+      if (cols.title>-1 && !String(r[cols.title]||'').trim()) c.noTitle++;
+      if (cols.company>-1 && !String(r[cols.company]||'').trim()) c.noCompany++;
+      if (cols.phone>-1 && !String(r[cols.phone]||'').trim()) c.noPhone++;
+      if (cols.addr>-1 && !String(r[cols.addr]||'').trim()) c.noAddr++;
+      var nm = cols.name>-1 ? r[cols.name] : [cols.first>-1?r[cols.first]:'', cols.last>-1?r[cols.last]:''].join(' ').trim();
+      out.push({email:em||'(empty)', name:nm||'', company:cols.company>-1?r[cols.company]:'', res:res});
+    });
+    if (cols.title<0) c.noTitle = 0;
+    if (cols.company<0) c.noCompany = rows.length;
+    if (cols.phone<0) c.noPhone = rows.length;
+    if (cols.addr<0) c.noAddr = rows.length;
+    var n = rows.length || 1;
+    var score = (c.ok + c.risk*0.4) / n * 100;
+    var grade = score>=85?'A':score>=72?'B':score>=58?'C':'D';
+    return {file:file, n:rows.length, c:c, out:out, grade:grade, score:score, cols:cols};
+  }
 
-/* fields */
-const FIELDS=[
- ["Storefront",null],
- ["Seller ID","Marketplace merchant token or store domain",100],
- ["Storefront URL","Direct link to the seller page",100],
- ["Top category","Category with the most active listings",98],
- ["Ratings count and score","Lifetime ratings and average score",96],
- ["Active listings","Live product count at last refresh",94],
- ["Fulfilment","FBA, FBM or both (Amazon)",91],
- ["Est. revenue band","Monthly revenue band, modelled",88],
- ["Company",null],
- ["Legal business name","As disclosed on the storefront",93],
- ["Verified address","Registered business address",83],
- ["Company website","Brand's own domain, if any",71],
- ["Other marketplaces","Same business on other channels",64],
- ["Contact",null],
- ["Decision maker","Name and role of founder or ecommerce lead",81],
- ["Work email","Checked at the mail server before delivery",78],
- ["LinkedIn profile","Decision maker's profile URL",58],
- ["Direct phone","Business line or mobile",46]
-];
-FIELDS.forEach(([n,d,p])=>{$("fieldRows").insertAdjacentHTML("beforeend",p==null?`<tr class="group-row"><td colspan="3">${n}</td></tr>`:`<tr><td>${n}</td><td style="color:var(--muted)">${d}</td><td><div class="fill"><div class="track"><span style="width:${p}%"></span></div><b class="num">${p}%</b></div></td></tr>`)});
+  /* ---------- sample file: deterministic seller contact list with real-world problems ---------- */
+  function sample(){
+    var F='Daniel Leah Sofia Omar Grace Emma Hannah Aarav Priya James Mei Karan Yusuf Ana Lukas Rahul Nora Rosa Kai'.split(' ');
+    var L='Alvarez Brown Chen Diallo Fischer Grant Haddad Iyer Jensen Kim Larsen Marino Novak Okonkwo Patel Quill Reyes Silva Weber'.split(' ');
+    var P='Veda Goods|Northpeak Goods|Desert Rose Living|Lumen Essentials|Juniper Row Naturals|Veda Home|Bluefin Trading|Saltmarsh Supply Co.|Kestrel Outfitters|Harbor Lane Goods|Tallgrass Brands|Oakmere Supply|Brightwell Living|Copperleaf Naturals|Riverstone Trading|Sundara Labs|Orchid Loom|Fernhill Home|Ironbark Outfitters|Maple Finch Brands'.split('|');
+    var T='Owner|Founder|CEO|Marketplace Manager|Head of Ecommerce|Co-founder|Purchasing Lead'.split('|');
+    var MK='Amazon.com|Amazon.com|Amazon.com|Amazon.co.uk|Amazon.de|Shopify|Walmart|eBay'.split('|');
+    var CITY=['Austin, TX','Newark, NJ','Columbus, OH','Phoenix, AZ','Miami, FL','Leeds','Hamburg','Toronto'];
+    var rows=[], seed=7; function rnd(){ seed=(seed*9301+49297)%233280; return seed/233280; }
+    for (var i=0;i<1178;i++){
+      var f=F[Math.floor(rnd()*F.length)], l=L[Math.floor(rnd()*L.length)], p=P[Math.floor(rnd()*P.length)], mk=MK[Math.floor(rnd()*MK.length)];
+      var d=p.toLowerCase().replace(/[^a-z]/g,'').slice(0,16)+'.com', x=rnd(), e, ph;
+      if (x<.09) e=['info','sales','support','office'][i%4]+'@'+d;
+      else if (x<.20) e=f.toLowerCase()+l.toLowerCase()+(1960+i%40)+'@'+['gmail.com','yahoo.com','aol.com','hotmail.com'][i%4];
+      else if (x<.23) e=f.toLowerCase()+'.'+l.toLowerCase()+'@'+['gmial.com','yahooo.com','hotmial.com'][i%3];
+      else if (x<.26) e=f.toLowerCase()+' '+l.toLowerCase()+'@'+d;
+      else e=f.charAt(0).toLowerCase()+l.toLowerCase()+(i%11?String(i%11):'')+'@'+d;
+      ph = rnd()<.52 ? '' : '+1 '+String(200+Math.floor(rnd()*700))+' 555 '+String(1000+Math.floor(rnd()*8999));
+      var addr = rnd()<.38 ? '' : CITY[Math.floor(rnd()*CITY.length)];
+      rows.push([p, f+' '+l, e, ph, addr, rnd()<.22?'':T[Math.floor(rnd()*T.length)], mk]);
+    }
+    for (var k=0;k<62;k++) rows.push(rows[(k*37)%1200].slice());
+    rows[0]=['Veda Goods','Front Desk','info@vedagoods.com','','Newark, NJ','','Amazon.com'];
+    rows[1]=['Veda Goods','Daniel Alvarez','daniel.a@vedagood.com','+1 973 555 0148','Newark, NJ','Owner','Amazon.com'];
+    rows[2]=['Northpeak Goods','Leah Brown','l.brown@northpeakgoods.com','+1 614 555 0122','Columbus, OH','CEO','Amazon.com'];
+    rows[3]=['Northpeak Goods','Leah Brown','l.brown@northpeakgoods.com','+1 614 555 0122','Columbus, OH','CEO','Amazon.com'];
+    rows[4]=['Bluefin Trading','Emma Grant','emma.g1979@yahoo.com','','Miami, FL','Owner','Amazon.com'];
+    rows[5]=['Saltmarsh Supply Co.','Grace Diaz','g.diaz@saltmarshsuppl.com','+1 602 555 0193','Phoenix, AZ','Founder','Amazon.com'];
+    rows[6]=['Harbor Lane Goods','Omar Haddad','o.haddad@harborlanegoods.com','+1 512 555 0177','Austin, TX','Marketplace Manager','Amazon.com'];
+    return audit('seller-contacts-q3.csv', ['Company','Contact Name','Email','Phone','Address','Title','Marketplace'], rows);
+  }
 
-/* tiers */
-[["Up to 5,000",.18,2500],["5,000 to 25,000",.12,10000],["25,000 to 100,000",.08,50000],["100,000+",.05,150000]].forEach(([l,r,ex])=>$("tierRows").insertAdjacentHTML("beforeend",`<tr><td>${l}</td><td class="num mono">$${r.toFixed(2)}</td><td class="num mono">${fmt(ex)} records = ${money(Math.max(500,ex*r))}</td></tr>`));
+  /* ---------- render ---------- */
+  var $ = function(id){ return document.getElementById(id); };
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function fmt(n){ return Number(n).toLocaleString('en-US'); }
+  function pct(a,n){ return n? Math.round(a/n*100):0; }
+  var WHY = {role:'Role',free:'Personal',typo:'Typo',dup:'Duplicate',disposable:'Throwaway',syntax:'Invalid',empty:'Empty'};
+  var state = {a:null, isSample:true, stage:'report'};
 
-/* plan buttons preselect */
-document.querySelectorAll("[data-plan]").forEach(a=>a.addEventListener("click",()=>{$("q-plan").value=a.dataset.plan}));
-$("sampleBtn").addEventListener("click",()=>{$("q-plan").value="Free samples only"});
-$("orderBtn").addEventListener("click",()=>{$("q-plan").value="One-off list"});
+  function render(){
+    var a = state.a, c = a.c, n = a.n;
+    var risky = c.risk, bad = c.bad;
+    var issues = [
+      ['dup', c.dup, 'Same address appears more than once'],
+      ['role', c.role, 'Shared inboxes like info@ and frontdesk@'],
+      ['free', c.free, 'Gmail, Yahoo and similar on a B2B list'],
+      ['typo', c.typo, 'Likely misspelled domains'],
+      ['syntax', (c.syntax||0)+(c.empty||0), 'Malformed or empty'],
+      ['disposable', c.disposable, 'Throwaway mail services'],
+      ['noTitle', c.noTitle, 'Rows with no job title'],
+      ['noCompany', c.noCompany, 'Rows with no company'],
+      ['noPhone', c.noPhone, 'Rows with no phone number'],
+      ['noAddr', c.noAddr, 'Rows with no address']
+    ];
+    var labels = {dup:'Duplicates',role:'Role inboxes',free:'Personal addresses',typo:'Domain typos',syntax:'Invalid syntax',disposable:'Throwaway domains',noTitle:'Missing title',noCompany:'Missing company',noPhone:'Missing phone',noAddr:'Missing address'};
+    var shown = a.out.filter(function(r){return r.res.s!=='ok';}).slice(0,5).concat(a.out.filter(function(r){return r.res.s==='ok' && !a.out.some(function(o){return o.res.why==='dup'&&o.email===r.email;});}).slice(0,2));
+    var problem = risky + bad;
+    var note = problem
+      ? fmt(problem) + ' of ' + fmt(n) + ' (' + pct(problem,n) + '%) will likely bounce or land in spam. Fix these before you send.'
+      : 'Clean on the surface. The mailbox check is what tells you who is really there.';
+    var verifyN = Math.min(50000, n);
 
-/* form */
-$("qf").addEventListener("submit",e=>{e.preventDefault();const err=$("qfErr"),ok=$("qfMsg");err.hidden=true;ok.hidden=true;
-  const name=$("q-name").value.trim(),email=$("q-email").value.trim();
-  if(!name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent="Add your name and a valid work email so we can send the quote.";err.hidden=false;return}
-  ok.textContent="Request captured in this prototype. Nothing was sent. In production this goes to the sales inbox and CRM with your filters attached.";ok.hidden=false});
+    var h = '<div class="rep-head"><div class="file"><span class="mono">' + (state.isSample?'Sample report':'Your report') + '</span><b title="' + esc(a.file) + '">' + esc(a.file) + '<span class="tag' + (state.isSample?'':' yours') + '">' + (state.isSample?'Sample file':'Your file') + '</span></b></div>'
+      + '<div class="stamp pop" aria-label="Grade ' + a.grade + '"><b>' + a.grade + '</b><small>GRADE</small></div></div>'
+      + '<div class="rep-body"><div class="rep-col">'
+      + '<div class="mono">' + fmt(n) + ' rows checked</div>'
+      + '<div class="split-bar" role="img" aria-label="' + pct(c.ok,n) + '% look deliverable, ' + pct(risky,n) + '% risky, ' + pct(bad,n) + '% invalid">'
+      + '<i style="width:' + pct(c.ok,n) + '%;background:var(--green)"></i><i style="width:' + pct(risky,n) + '%;background:var(--amber);animation-delay:.15s"></i><i style="width:' + pct(bad,n) + '%;background:var(--red);animation-delay:.3s"></i></div>'
+      + '<div class="keys">'
+      + '<div class="key"><b class="num">' + pct(c.ok,n) + '%</b><span><i class="dot" style="background:var(--green)"></i>Deliverable</span></div>'
+      + '<div class="key"><b class="num">' + pct(risky,n) + '%</b><span><i class="dot" style="background:var(--amber)"></i>Risky</span></div>'
+      + '<div class="key"><b class="num">' + pct(bad,n) + '%</b><span><i class="dot" style="background:var(--red)"></i>Invalid</span></div></div>'
+      + '<ul class="issues">' + issues.filter(function(x){return x[1];}).sort(function(a,b){return b[1]-a[1];}).slice(0,6).map(function(x){ return '<li class="' + (x[1]?'':'zero') + '"><span>' + labels[x[0]] + '<span class="why">' + x[2] + '</span></span><b class="num">' + fmt(x[1]) + '</b></li>'; }).join('') + '</ul>'
+      + '</div><div class="rep-col"><div class="mono">Marked up</div>'
+      + '<table class="marked"><tbody>' + shown.map(function(r){
+          var s = r.res.s, cls = s==='bad'?'x':(s==='risk'?'circ':'');
+          var chip = s==='ok'?'<span class="chip c-ok">OK</span>':'<span class="chip ' + (s==='bad'?'c-bad':'c-risk') + '">' + (WHY[r.res.why]||'Check') + '</span>';
+          return '<tr><td><span class="' + cls + '">' + esc(r.email) + '</span></td><td>' + esc(r.company||r.name||'') + '</td><td>' + chip + '</td></tr>';
+        }).join('') + '</tbody></table>'
+      + '<div class="margin-note"><svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><path d="M3 22C8 12 14 7 23 4M23 4l-7 0M23 4l-2 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>' + esc(note) + '</span></div>'
+      + '</div></div><div class="rep-foot" id="foot">' + foot(verifyN) + '</div>';
+    $('report').innerHTML = h;
+    var L = $('later'); if (L) { if (state.isSample) L.classList.remove('show'); else L.classList.add('show'); }
+    wire();
+  }
 
-/* restore */
-try{const s=JSON.parse(localStorage.getItem("sl-filters")||"null");if(s&&s.mk){S.mk=new Set(s.mk);S.cat=new Set(s.cat);S.rev=new Set(s.rev);S.ful=s.ful||"any";S.need=new Set(s.need)}}catch(e){}
-render();
+  function foot(verifyN){
+    if (state.stage==='gate') return '<form class="gate" id="gate" novalidate><label for="gemail">Where should we send your coverage plan and 25 matched samples? Use your work email.</label><input id="gemail" type="email" autocomplete="email" placeholder="you@company.com" required><button class="btn btn-red glow" type="submit"><span class="swap"><span>Send my coverage plan</span><span>Send my coverage plan</span></span><span class="arr"><i>&#8594;</i><i>&#8594;</i></span></button><div class="err" id="gerr" role="alert" hidden></div></form>';
+    if (state.stage==='done') return '<div class="done"><span class="mono">Request ready</span><h3>We would build a coverage plan and 25 matched seller records for ' + esc(state.email) + '.</h3><p style="color:var(--ink-2)">In the live site, your coverage plan arrives by email within two business days with a strategist’s note on what to run next. Want to talk it through?</p><div><a class="btn btn-ink glow" href="#strategist"><span class="swap"><span>Book a 20 minute strategy call</span><span>Book a 20 minute strategy call</span></span><span class="arr"><i>&#8594;</i><i>&#8594;</i></span></a></div><p class="proto">Prototype: nothing was uploaded or sent.</p></div>';
+    var lead = state.isSample ? 'This is a sample. Drop your own file to see its grade, then get a coverage plan and 25 matched seller records free.' : 'The browser check catches the obvious problems. The mailbox check tells you who is really there.';
+    return '<p>' + lead + '</p>' + (state.isSample
+      ? '<label class="btn btn-ink glow" for="file"><span class="swap"><span>Check my own list</span><span>Check my own list</span></span><span class="arr"><i>&#8593;</i><i>&#8593;</i></span></label>'
+      : '<button class="btn btn-red glow" id="go" type="button"><span class="swap"><span>Get my coverage plan</span><span>Get my coverage plan</span></span><span class="arr"><i>&#8594;</i><i>&#8594;</i></span></button>');
+  }
+
+  function wire(){
+    var go=$('go'); if (go) go.addEventListener('click', function(){ state.stage='gate'; $('foot').innerHTML=foot(Math.min(1000,state.a.n)); wire(); $('gemail').focus(); });
+    var g=$('gate'); if (g) g.addEventListener('submit', function(e){
+      e.preventDefault(); var v=$('gemail').value.trim().toLowerCase(), r=check(v), err=$('gerr');
+      if (r.s==='bad' || r.why==='typo'){ err.textContent='That address does not look right. Check the spelling.'; err.hidden=false; return; }
+      if (r.why==='free'){ err.textContent='Please use your work email. Personal addresses like Gmail cannot receive verification results.'; err.hidden=false; return; }
+      state.email=v; state.stage='done'; $('foot').innerHTML=foot(Math.min(1000,state.a.n)); wire();
+    });
+    glow();
+  }
+
+  /* ---------- file input ---------- */
+  function parseCSV(text){
+    var d = (text.split('\n')[0].match(/\t/g)||[]).length > (text.split('\n')[0].match(/,/g)||[]).length ? '\t' : (text.split('\n')[0].indexOf(';')>-1 && text.split('\n')[0].indexOf(',')<0 ? ';' : ',');
+    var rows=[], row=[], cur='', q=false;
+    for (var i=0;i<text.length;i++){
+      var ch=text[i];
+      if (q){ if (ch==='"'){ if (text[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=ch; }
+      else if (ch==='"') q=true;
+      else if (ch===d){ row.push(cur); cur=''; }
+      else if (ch==='\n'){ row.push(cur.replace(/\r$/,'')); rows.push(row); row=[]; cur=''; if (rows.length>50001) break; }
+      else cur+=ch;
+    }
+    if (cur || row.length){ row.push(cur); rows.push(row); }
+    return rows;
+  }
+  function showErr(m){ var e=$('err'); e.textContent=m; e.hidden=!m; }
+  function handle(file){
+    if (!file) return; showErr('');
+    var ext = (file.name.split('.').pop()||'').toLowerCase();
+    var rd = new FileReader();
+    rd.onerror = function(){ showErr('We could not read that file. Try saving it as CSV.'); };
+    rd.onload = function(){
+      var rows;
+      try {
+        if (ext==='xlsx'||ext==='xls'){
+          if (!window.XLSX){ showErr('Excel reading did not load. Save the file as CSV and try again.'); return; }
+          var wb = XLSX.read(new Uint8Array(rd.result), {type:'array'});
+          rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], {header:1, defval:''});
+        } else rows = parseCSV(rd.result);
+      } catch(e){ showErr('We could not read that file. Try saving it as CSV.'); return; }
+      rows = rows.filter(function(r){ return r.some(function(c){ return String(c).trim()!==''; }); });
+      if (rows.length<2){ showErr('That file looks empty. It needs a header row and at least one contact.'); return; }
+      var a = audit(file.name, rows[0], rows.slice(1,50001).map(function(r){ return r.map(function(c){return String(c==null?'':c).trim();}); }));
+      if (a.error){ showErr(a.error); return; }
+      state = {a:a, isSample:false, stage:'report'}; render();
+      $('report').scrollIntoView({behavior: reduce?'auto':'smooth', block:'nearest'});
+    };
+    if (ext==='xlsx'||ext==='xls') rd.readAsArrayBuffer(file); else rd.readAsText(file);
+  }
+  $('file').addEventListener('change', function(e){ handle(e.target.files[0]); e.target.value=''; });
+  var drop=$('drop');
+  ['dragenter','dragover'].forEach(function(t){ drop.addEventListener(t,function(e){ e.preventDefault(); drop.classList.add('over'); }); });
+  ['dragleave','drop'].forEach(function(t){ drop.addEventListener(t,function(e){ e.preventDefault(); drop.classList.remove('over'); }); });
+  drop.addEventListener('drop', function(e){ handle(e.dataTransfer && e.dataTransfer.files[0]); });
+  drop.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = $('hemail').value.trim();
+    var ok = /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(v) && !/(gmail|yahoo|hotmail|outlook|icloud|aol)\./i.test(v);
+    if (!ok) { $('hint').textContent = 'Use your work address so we know where to send the plan.'; $('hemail').focus(); return; }
+    state.email = v;
+    if (state.a) { state.stage = 'done'; $('foot').innerHTML = foot(Math.min(1000, state.a.n)); wire(); }
+    $('foot').scrollIntoView({block:'nearest'});
+  });
+  document.querySelectorAll('[data-focus-drop]').forEach(function(a){ a.addEventListener('click', function(){ setTimeout(function(){ $('pick').focus({preventScroll:true}); }, 400); }); });
+
+  var FINDER = {"lists": [{"t": "Amazon.com sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?mk=amz-us", "g": "Amazon marketplaces"}, {"t": "Amazon.co.uk sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?mk=amz-uk", "g": "Amazon marketplaces"}, {"t": "Amazon.de sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?mk=amz-de", "g": "Amazon marketplaces"}, {"t": "Amazon.in sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?mk=amz-in", "g": "Amazon marketplaces"}, {"t": "Amazon.ae sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?mk=amz-ae", "g": "Amazon marketplaces"}, {"t": "Shopify stores", "u": "https://sellerledger.deep-ae0.workers.dev/?mk=shopify", "g": "Other marketplaces"}, {"t": "Walmart sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?mk=walmart", "g": "Other marketplaces"}, {"t": "eBay sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?mk=ebay", "g": "Other marketplaces"}, {"t": "Etsy sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?mk=etsy", "g": "Other marketplaces"}, {"t": "Flipkart sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?mk=flipkart", "g": "Other marketplaces"}, {"t": "noon sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?mk=noon", "g": "Other marketplaces"}, {"t": "Mercado Libre sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?mk=meli", "g": "Other marketplaces"}, {"t": "TikTok Shop sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?mk=tiktok", "g": "Other marketplaces"}, {"t": "FBA sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?ful=fba", "g": "By fulfillment"}, {"t": "FBM sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?ful=fbm", "g": "By fulfillment"}, {"t": "Sellers under $10K a month", "u": "https://sellerledger.deep-ae0.workers.dev/?rev=under-10k", "g": "By monthly revenue"}, {"t": "Sellers $10K to $100K a month", "u": "https://sellerledger.deep-ae0.workers.dev/?rev=10k-100k", "g": "By monthly revenue"}, {"t": "Sellers $100K to $1M a month", "u": "https://sellerledger.deep-ae0.workers.dev/?rev=100k-1m", "g": "By monthly revenue"}, {"t": "Sellers over $1M a month", "u": "https://sellerledger.deep-ae0.workers.dev/?rev=1m-plus", "g": "By monthly revenue"}, {"t": "Home and Kitchen sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?cat=home-kitchen", "g": "By category"}, {"t": "Apparel sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?cat=apparel", "g": "By category"}, {"t": "Beauty sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?cat=beauty", "g": "By category"}, {"t": "Health sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?cat=health", "g": "By category"}, {"t": "Electronics sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?cat=electronics", "g": "By category"}, {"t": "Pet sellers", "u": "https://sellerledger.deep-ae0.workers.dev/?cat=pet", "g": "By category"}, {"t": "Sellers with verified email", "u": "https://sellerledger.deep-ae0.workers.dev/?need=email", "g": "By contact route"}, {"t": "Sellers with direct phone", "u": "https://sellerledger.deep-ae0.workers.dev/?need=phone", "g": "By contact route"}, {"t": "Sellers with a LinkedIn decision maker", "u": "https://sellerledger.deep-ae0.workers.dev/?need=li", "g": "By contact route"}, {"t": "Sellers with a verified address", "u": "https://sellerledger.deep-ae0.workers.dev/?need=addr", "g": "By contact route"}, {"t": "Data foundation audit of your own file", "u": "#quote", "g": "Fix a list"}, {"t": "Email and phone appending", "u": "#quote", "g": "Fix a list"}, {"t": "Address completion", "u": "#quote", "g": "Fix a list"}, {"t": "Custom list build", "u": "#quote", "g": "Fix a list"}], "syn": {"amazon": "Amazon.com sellers", "amazon usa": "Amazon.com sellers", "amazon us": "Amazon.com sellers", "amazon uk": "Amazon.co.uk sellers", "uk sellers": "Amazon.co.uk sellers", "amazon germany": "Amazon.de sellers", "german sellers": "Amazon.de sellers", "amazon india": "Amazon.in sellers", "indian sellers": "Amazon.in sellers", "amazon uae": "Amazon.ae sellers", "dubai sellers": "Amazon.ae sellers", "shopify": "Shopify stores", "shopify stores": "Shopify stores", "walmart": "Walmart sellers", "ebay": "eBay sellers", "etsy": "Etsy sellers", "flipkart": "Flipkart sellers", "noon": "noon sellers", "mercadolibre": "Mercado Libre sellers", "mercado libre": "Mercado Libre sellers", "tiktok": "TikTok Shop sellers", "tiktok shop": "TikTok Shop sellers", "fba": "FBA sellers", "fbm": "FBM sellers", "3pl": "FBM sellers", "self shipped": "FBM sellers", "email list": "Sellers with verified email", "phone list": "Sellers with direct phone", "linkedin": "Sellers with a LinkedIn decision maker", "address": "Sellers with a verified address"}};
+  /* ---------- list finder: search, tabs, mega menu (all links already exist in the HTML) ---------- */
+  function norm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim(); }
+  function find(q){
+    q = norm(q); if (!q) return [];
+    var hits = [], seen = {};
+    function add(it, w){ if (!seen[it.u+it.t]){ seen[it.u+it.t]=1; hits.push({it:it, w:w}); } }
+    FINDER.lists.forEach(function(it){
+      var t = norm(it.t), g = norm(it.g);
+      if (t.indexOf(q) === 0) add(it, 3); else if (t.indexOf(q) > -1) add(it, 2); else if (g.indexOf(q) > -1) add(it, 1);
+    });
+    Object.keys(FINDER.syn).forEach(function(k){
+      if (q.indexOf(k) > -1 || (q.length > 2 && k.indexOf(q) === 0)) FINDER.lists.forEach(function(it){ if (it.t === FINDER.syn[k]) add(it, 2.5); });
+    });
+    return hits.sort(function(a,b){ return b.w - a.w; }).slice(0,8).map(function(h){ return h.it; });
+  }
+  function resultsFor(input){
+    var box = input.parentNode.querySelector('.results');
+    if (!box){ box = document.createElement('div'); box.className = 'results'; box.setAttribute('role','listbox'); input.insertAdjacentElement('afterend', box); }
+    return box;
+  }
+  document.querySelectorAll('[data-finder-input]').forEach(function(input){
+    input.addEventListener('input', function(){
+      var box = resultsFor(input), q = input.value.trim();
+      if (!q){ box.hidden = true; box.innerHTML = ''; return; }
+      var r = find(q);
+      box.innerHTML = r.length
+        ? r.map(function(it){ return '<a role="option" href="' + it.u + '"><span>' + esc(it.t) + '</span><small>' + esc(it.g) + '</small></a>'; }).join('')
+        : '<div class="nomatch"><p class="hand">No ready list for &ldquo;' + esc(q) + '&rdquo; yet.</p><p>We build custom lists for niches like this. Tell a strategist who you sell to and get counts back.</p><a class="btn btn-ink" href="#strategist"><span>Request a custom list</span><span class="arr"><i>&#8594;</i><i>&#8594;</i></span></a></div>';
+      box.hidden = false;
+    });
+    input.addEventListener('keydown', function(e){
+      if (e.key === 'Enter'){ var first = resultsFor(input).querySelector('a'); if (first){ e.preventDefault(); first.click(); } }
+      if (e.key === 'Escape'){ input.value = ''; input.dispatchEvent(new Event('input')); }
+    });
+  });
+
+  var finderEl = document.getElementById('lists');
+  if (finderEl){
+    finderEl.classList.add('tabbed');
+    var tabsEls = finderEl.querySelectorAll('[role=tab]');
+    function sel(btn){
+      tabsEls.forEach(function(b){ var on = b === btn; b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; document.getElementById(b.getAttribute('aria-controls')).classList.toggle('on', on); });
+    }
+    tabsEls.forEach(function(b, i){
+      b.addEventListener('click', function(){ sel(b); });
+      b.addEventListener('keydown', function(e){ var d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0; if (d){ e.preventDefault(); var n = tabsEls[(i + d + tabsEls.length) % tabsEls.length]; n.focus(); sel(n); } });
+    });
+    sel(tabsEls[0]);
+  }
+
+  var mega = document.getElementById('mega'), trigs = document.querySelectorAll('.mtrig'), hoverT;
+  function openMega(which, btn){
+    mega.setAttribute('data-open', which || '');
+    trigs.forEach(function(t){ t.setAttribute('aria-expanded', which && t === btn ? 'true' : 'false'); });
+    document.documentElement.classList.toggle('mega-open', !!which);
+  }
+  trigs.forEach(function(t){
+    t.addEventListener('click', function(e){
+      e.stopPropagation();
+      var which = t.classList.contains('burger') ? 'all' : t.getAttribute('data-panel');
+      openMega(mega.getAttribute('data-open') === which ? '' : which, t);
+    });
+    if (matchMedia('(hover:hover) and (pointer:fine)').matches && !t.classList.contains('burger')){
+      t.addEventListener('mouseenter', function(){ clearTimeout(hoverT); hoverT = setTimeout(function(){ openMega(t.getAttribute('data-panel'), t); }, 120); });
+    }
+  });
+  if (mega){
+    mega.addEventListener('mouseleave', function(){ if (matchMedia('(hover:hover)').matches){ hoverT = setTimeout(function(){ openMega(''); }, 250); } });
+    mega.addEventListener('mouseenter', function(){ clearTimeout(hoverT); });
+    mega.addEventListener('click', function(e){ if (e.target.closest('a')) openMega(''); });
+    document.addEventListener('click', function(e){ if (!e.target.closest('#mega') && !e.target.closest('.mtrig')) openMega(''); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') openMega(''); });
+  }
+
+  /* ---------- hero form: file first, then work email ---------- */
+  var heroForm = document.getElementById('drop'), later = document.getElementById('later');
+  document.getElementById('file').addEventListener('change', function(){ setTimeout(function(){ if (!state.isSample) later.classList.add('show'); }, 300); });
+  if (heroForm) heroForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var v = (document.getElementById('hemail').value || '').trim().toLowerCase(), r = check(v);
+    if (state.isSample){ showErr('Choose your list file first.'); return; }
+    if (r.s === 'bad' || r.why === 'typo'){ showErr('That email does not look right. Check the spelling.'); return; }
+    if (r.why === 'free'){ showErr('Please use your work email. Personal addresses like Gmail cannot receive verification results.'); return; }
+    showErr(''); state.email = v; state.stage = 'done';
+    document.getElementById('foot').innerHTML = foot(Math.min(1000, state.a.n)); wire();
+    document.getElementById('report').scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'nearest'});
+  });
+
+  /* ---------- glow follow ---------- */
+  function glow(){ document.querySelectorAll('.glow').forEach(function(el){ if (el._g) return; el._g=1; el.addEventListener('pointermove', function(e){ var r=el.getBoundingClientRect(); el.style.setProperty('--gx',(e.clientX-r.left)+'px'); el.style.setProperty('--gy',(e.clientY-r.top)+'px'); }); }); }
+
+  /* ---------- scroll reveals (transform only, content visible at rest) ---------- */
+  if (html.classList.contains('motion')){
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.remove('pre'); if (e.target.classList.contains('step')) e.target.classList.add('on'); io.unobserve(e.target); } }); }, {threshold:.18});
+    document.querySelectorAll('.reveal').forEach(function(el){ var r=el.getBoundingClientRect(); if (r.top > innerHeight){ el.classList.add('pre'); io.observe(el); } else if (el.classList.contains('step')) el.classList.add('on'); });
+  } else document.querySelectorAll('.step').forEach(function(s){ s.classList.add('on'); });
+
+  /* ---------- sticky mobile CTA after hero ---------- */
+  var hero=document.querySelector('.hero'), st=$('sticky');
+  if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ st.classList.toggle('show', !es[0].isIntersecting); }).observe(hero);
+
+  state.a = sample(); render();
 })();
 </script>
+
 </body>
 </html>
