@@ -1,0 +1,69 @@
+# SellerLedger
+
+> Free audit of your seller contact file, then Amazon and ecommerce seller lists by marketplace, category and revenue band, with 25 matched sample records free.
+
+Free offer: drop a CSV or Excel seller contact file and its contact coverage is graded free in the browser. A coverage plan and 25 matched sample seller records go to a work email.
+
+## Key pages
+
+- [Home and free verification](https://sellerledger.deep-ae0.workers.dev/): drop a list, get a report, verify 1,000 contacts free
+- [Home as markdown](https://sellerledger.deep-ae0.workers.dev/index.md)
+
+## Amazon marketplaces seller lists
+
+- [Amazon.com sellers](https://sellerledger.deep-ae0.workers.dev/?mk=amz-us)
+- [Amazon.co.uk sellers](https://sellerledger.deep-ae0.workers.dev/?mk=amz-uk)
+- [Amazon.de sellers](https://sellerledger.deep-ae0.workers.dev/?mk=amz-de)
+- [Amazon.in sellers](https://sellerledger.deep-ae0.workers.dev/?mk=amz-in)
+- [Amazon.ae sellers](https://sellerledger.deep-ae0.workers.dev/?mk=amz-ae)
+
+## Other marketplaces seller lists
+
+- [Shopify stores](https://sellerledger.deep-ae0.workers.dev/?mk=shopify)
+- [Walmart sellers](https://sellerledger.deep-ae0.workers.dev/?mk=walmart)
+- [eBay sellers](https://sellerledger.deep-ae0.workers.dev/?mk=ebay)
+- [Etsy sellers](https://sellerledger.deep-ae0.workers.dev/?mk=etsy)
+- [Flipkart sellers](https://sellerledger.deep-ae0.workers.dev/?mk=flipkart)
+- [noon sellers](https://sellerledger.deep-ae0.workers.dev/?mk=noon)
+- [Mercado Libre sellers](https://sellerledger.deep-ae0.workers.dev/?mk=meli)
+- [TikTok Shop sellers](https://sellerledger.deep-ae0.workers.dev/?mk=tiktok)
+
+## By fulfillment seller lists
+
+- [FBA sellers](https://sellerledger.deep-ae0.workers.dev/?ful=fba)
+- [FBM sellers](https://sellerledger.deep-ae0.workers.dev/?ful=fbm)
+
+## By monthly revenue seller lists
+
+- [Sellers under $10K a month](https://sellerledger.deep-ae0.workers.dev/?rev=under-10k)
+- [Sellers $10K to $100K a month](https://sellerledger.deep-ae0.workers.dev/?rev=10k-100k)
+- [Sellers $100K to $1M a month](https://sellerledger.deep-ae0.workers.dev/?rev=100k-1m)
+- [Sellers over $1M a month](https://sellerledger.deep-ae0.workers.dev/?rev=1m-plus)
+
+## By category seller lists
+
+- [Home and Kitchen sellers](https://sellerledger.deep-ae0.workers.dev/?cat=home-kitchen)
+- [Apparel sellers](https://sellerledger.deep-ae0.workers.dev/?cat=apparel)
+- [Beauty sellers](https://sellerledger.deep-ae0.workers.dev/?cat=beauty)
+- [Health sellers](https://sellerledger.deep-ae0.workers.dev/?cat=health)
+- [Electronics sellers](https://sellerledger.deep-ae0.workers.dev/?cat=electronics)
+- [Pet sellers](https://sellerledger.deep-ae0.workers.dev/?cat=pet)
+
+## By contact route seller lists
+
+- [Sellers with verified email](https://sellerledger.deep-ae0.workers.dev/?need=email)
+- [Sellers with direct phone](https://sellerledger.deep-ae0.workers.dev/?need=phone)
+- [Sellers with a LinkedIn decision maker](https://sellerledger.deep-ae0.workers.dev/?need=li)
+- [Sellers with a verified address](https://sellerledger.deep-ae0.workers.dev/?need=addr)
+
+## Data services
+
+- [Data foundation audit of your own file](https://sellerledger.deep-ae0.workers.dev/)
+- [Email and phone appending](https://sellerledger.deep-ae0.workers.dev/)
+- [Address completion](https://sellerledger.deep-ae0.workers.dev/)
+- [Custom list build](https://sellerledger.deep-ae0.workers.dev/)
+
+## Contact
+
+- Phone: 
+- Email: 
